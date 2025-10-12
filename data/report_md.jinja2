@@ -1,6 +1,24 @@
 # mac dot report
 
+{% set unmanaged_items = [] %}
+{% set managed_items = [] %}
 {% for item in csv_data %}
+  {% if item.cat_1_name_cf is none or item.cat_1_name_cf == 'None' %}
+    {% set _ = unmanaged_items.append(item) %}
+  {% else %}
+    {% set _ = managed_items.append(item) %}
+  {% endif %}
+{% endfor %}
+
+{% if unmanaged_items %}
+### New Unmanaged in $HOME
+{% for item in unmanaged_items %}
+
+- {% if item.item_type == 'folder' %}**{{ item.item_name }}{% if item.comment_cf %} | {{ item.comment_cf.strip() }}{% endif %} (ƒ)**{% else %}{{ item.item_name }}{% if item.comment_cf %} | {{ item.comment_cf.strip() }}{% endif %}{% endif %}{% endfor %}
+
+{% endif %}
+
+{% for item in managed_items %}
 {% if loop.first or item.cat_1_cf != loop.previtem.cat_1_cf %}
 
 ### {{ item.cat_1_name_cf }}
@@ -13,7 +31,7 @@
 - {% if item.item_type == 'folder' %}**{{ item.item_name }}{% if item.comment_cf %} | {{ item.comment_cf.strip() }}{% endif %} (ƒ)**{% else %}{{ item.item_name }}{% if item.comment_cf %} | {{ item.comment_cf.strip() }}{% endif %}{% endif %}
 {% endfor %}
 
----  
+---
 
 ### Unmatched Items
 
@@ -25,6 +43,5 @@
 #### _Items not in Home Folder (but in Template)_
 
 {% for item in di_not_in_fs %}
-
 - {{ item.item_name }}{% if item.cf_comment %} | {{ item.cf_comment.strip() }}{% endif %}{% if item.item_type == 'folder' %} (ƒ){% endif %}
 {% endfor %}
