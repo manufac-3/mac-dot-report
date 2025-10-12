@@ -32,23 +32,19 @@ def reorder_dfr_cols_for_cli(report_dataframe, show_all_fields, show_main_fields
     regular_field_columns = [
         'unique_id',
         'st_alert',
-        # 'item_name_rp',
-        # 'item_name_home', 'item_name_repo', 'item_type_home', 'item_type_repo', 
         'item_name_repo',
         'item_name_home',
-        'dot_struc', 
+        'dot_struc',
         'dot_struc_cf',
-        'item_type_repo', 
+        'item_type_repo',
         'item_type_home',
-        'cat_1_cf', 
-
+        'cat_1_cf',
+        'cat_1_name_cf',
+        'cat_2_cf',
+        'comment_cf',
         'git_rp',
         'st_db_all', 'st_docs',
-        # 'cat_2_cf',
-        # 'comment_cf',
-
         'st_misc',
-
         'sort_orig', 'sort_out',
         # 'm_consol_dict'
     ]

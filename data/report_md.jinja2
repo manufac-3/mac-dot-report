@@ -1,16 +1,16 @@
 # mac dot report
 
 {% for item in csv_data %}
-{% if loop.first or item.cf_cat_1 != loop.previtem.cf_cat_1 %}
+{% if loop.first or item.cat_1_cf != loop.previtem.cat_1_cf %}
 
-### {{ item.cf_cat_1_name }}
+### {{ item.cat_1_name_cf }}
 {% endif %}
 
-{% if loop.first or item.cf_cat_2 != loop.previtem.cf_cat_2 %}
-#### {{ item.cf_cat_1 }}: {{ item.cf_cat_2 }}
+{% if loop.first or item.cat_2_cf != loop.previtem.cat_2_cf %}
+#### {{ item.cat_1_cf }}: {{ item.cat_2_cf }}
 {% endif %}
 
-- {% if item.item_type == 'folder' %}**{{ item.item_name }}{% if item.cf_comment %} | {{ item.cf_comment.strip() }}{% endif %} (ƒ)**{% else %}{{ item.item_name }}{% if item.cf_comment %} | {{ item.cf_comment.strip() }}{% endif %}{% endif %}
+- {% if item.item_type == 'folder' %}**{{ item.item_name }}{% if item.comment_cf %} | {{ item.comment_cf.strip() }}{% endif %} (ƒ)**{% else %}{{ item.item_name }}{% if item.comment_cf %} | {{ item.comment_cf.strip() }}{% endif %}{% endif %}
 {% endfor %}
 
 ---  
