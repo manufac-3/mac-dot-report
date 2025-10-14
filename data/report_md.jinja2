@@ -1,5 +1,7 @@
 # mac dot report
 
+
+
 {% set unmanaged_items = [] %}
 {% set managed_items = [] %}
 {% for item in csv_data %}
@@ -11,11 +13,7 @@
 {% endfor %}
 
 {% if unmanaged_items %}
-### New Unmanaged in $HOME
-{% for item in unmanaged_items %}
-
-- {% if item.item_type == 'folder' %}**{{ item.item_name }}{% if item.comment_cf %} | {{ item.comment_cf.strip() }}{% endif %} (ƒ)**{% else %}{{ item.item_name }}{% if item.comment_cf %} | {{ item.comment_cf.strip() }}{% endif %}{% endif %}{% endfor %}
-
+*♦️ New unmanaged item{{ unmanaged_items|length > 1 and 's' or '' }} in $HOME*
 {% endif %}
 
 {% for item in managed_items %}
@@ -35,13 +33,15 @@
 
 ### Unmatched Items
 
-#### _Items not in Template (but in Home Folder)_
+#### _Items not in Template (but in Home Folder)_ ♦️
 {% for item in fs_not_in_di %}
 - {{ item.item_name }}{% if item.item_type == 'folder' %} (ƒ){% endif %}
+
 {% endfor %}
 
 #### _Items not in Home Folder (but in Template)_
 
 {% for item in di_not_in_fs %}
 - {{ item.item_name }}{% if item.cf_comment %} | {{ item.cf_comment.strip() }}{% endif %}{% if item.item_type == 'folder' %} (ƒ){% endif %}
+
 {% endfor %}
