@@ -21,7 +21,9 @@ def main():
     from pathlib import Path
     import os
     reports_dir = os.getenv("SRB_REPORTS_DIR", "./_output")
-    print(f"Output directory: {Path(reports_dir).resolve()}")
+    env_var = "SRB_REPORTS_DIR" if os.getenv("SRB_REPORTS_DIR") else "./_output"
+    path_obj = Path(reports_dir).resolve()
+    print(f"Output directory: {env_var} (.../{path_obj.name})")
     
     main_df_dict = build_full_output_dict(verbose=config['verbose_output'])
 
