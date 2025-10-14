@@ -9,7 +9,7 @@ from .db13_merge import df_merge_sequence
 
 from db5_global.db50_global_misc import print_debug_info
 
-def build_main_dataframe():
+def build_main_dataframe(verbose=False):
     # Define individual DataFrames
     repo_df = load_rp_dataframe()
     home_df = load_hm_dataframe()
@@ -22,8 +22,7 @@ def build_main_dataframe():
     main_df['item_type'] = main_df['item_type_rp']
     main_df['unique_id'] = main_df['unique_id_rp']
 
-    print_df = 'none'  # Specify the output level here: 'full', 'short', or 'none'
-    print_debug_info(section_name='initialize', section_dict={'dataframe': main_df}, print_df=print_df)
+    print_df = 'full' if verbose else 'none'  # Specify the output level here: 'full', 'short', or 'none'
 
     # THE MERGE
     main_df = df_merge_sequence(main_df, home_df, dotbot_df, user_config_df, print_df) # Perform the merges

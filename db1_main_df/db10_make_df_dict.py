@@ -3,13 +3,13 @@ import pandas as pd
 from .db11_make_main_df import build_main_dataframe
 from db2_rep_df.db20_make_rpt_df import build_report_dataframe
 
-# Set pandas display options globally
-pd.set_option('display.max_rows', None)
-pd.set_option('display.max_columns', None)
-pd.set_option('display.width', None)
+# Set pandas display options globally (less verbose for console output)
+pd.set_option('display.max_rows', 10)  # Limit rows instead of None
+pd.set_option('display.max_columns', 10)  # Limit columns instead of None
+pd.set_option('display.width', 120)  # Reasonable width instead of None
 pd.set_option('display.max_colwidth', 30)
 
-def build_full_output_dict():
+def build_full_output_dict(verbose=False):
     output_df_dict = {}
 
     # Load original dataframes for unmatched items comparison
@@ -19,11 +19,11 @@ def build_full_output_dict():
     home_df = load_hm_dataframe()
     config_df = load_cf_dataframe()
 
-    full_main_dataframe = build_main_dataframe()
+    full_main_dataframe = build_main_dataframe(verbose=verbose)
     output_df_dict['full_main_dataframe'] = full_main_dataframe
     # print("\n FROM DB00: Full Main DataFrame:\n", full_main_dataframe)
 
-    report_dataframe = build_report_dataframe(output_df_dict)
+    report_dataframe = build_report_dataframe(output_df_dict, verbose=verbose)
     output_df_dict['report_dataframe'] = report_dataframe
     # print("\n FROM DB00: Report DataFrame:\n", report_dataframe)
 

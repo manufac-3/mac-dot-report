@@ -13,7 +13,7 @@ from .db40_term_disp import reorder_dfr_cols_for_cli
 # Opt-in to the future behavior for downcasting
 pd.set_option('future.no_silent_downcasting', True)
 
-def build_report_dataframe(main_df_dict):
+def build_report_dataframe(main_df_dict, verbose=False):
     report_dataframe = main_df_dict['full_main_dataframe'].copy()
     report_dataframe = add_report_fields(report_dataframe)
 
@@ -40,10 +40,10 @@ def build_report_dataframe(main_df_dict):
     
     report_dataframe = reorder_dfr_cols_for_cli( # Reorder columns for CLI display
         report_dataframe,
-        show_all_fields=False,
-        show_main_fields=False,
-        show_status_fields=False,
-        show_setup_group=True,
+        show_all_fields=verbose,
+        show_main_fields=verbose,
+        show_status_fields=verbose,
+        show_setup_group=verbose,  # Only show if verbose mode is enabled
     )
 
     return report_dataframe
