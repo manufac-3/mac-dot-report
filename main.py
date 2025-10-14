@@ -17,6 +17,12 @@ def main():
         'save_full_csv': False
     }
     
+    # Diagnostic: Show resolved output path
+    from pathlib import Path
+    import os
+    reports_dir = os.getenv("SRB_REPORTS_DIR", "./_output")
+    print(f"Output directory: {Path(reports_dir).resolve()}")
+    
     main_df_dict = build_full_output_dict(verbose=config['verbose_output'])
 
     # Configuration to control which outputs to save

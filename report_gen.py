@@ -4,24 +4,25 @@ import pandas as pd
 
 from datetime import datetime
 from jinja2 import Environment, FileSystemLoader
+from pathlib import Path
 
-# Define user paths without including User's actual $HOME folder name
-HOME_DIR = os.path.expanduser("~")
-USER_MAIN_PATH = os.path.join(HOME_DIR, "Library/Mobile Documents/com~apple~CloudDocs")
-USER_PATH_MD = os.path.join(USER_MAIN_PATH, "Documents_SRB iCloud/Filespace control/FS Ctrl - LOGS/Info Reports + Logs IN")
-USER_PATH_CSV = os.path.join(USER_MAIN_PATH, "Documents_SRB iCloud/Filespace control/FS Ctrl - LOGS/Info Reports + Logs IN")
+# Retrieve preferred reports directory (set in ~/.zshrc)
+REPORTS_DIR = os.getenv("SRB_REPORTS_DIR", "./_output")
+
+# Ensure the directory exists
+Path(REPORTS_DIR).mkdir(parents=True, exist_ok=True)
 
 # Define input and output paths
 USER_CONFIG_CSV_PATH = 'data'
 REPORT_TEMPLATE_J2 = 'report_md.jinja2'
 OUTPUT_BASE_NAME = "mac-dot-report"
 
-def generate_timestamped_output_paths(directory_path, base_name):
+def generate_timestamped_output_paths(base_name):
     timestamp = datetime.now().strftime('%y%m%d-%H%M%S')
     
-    markdown_output_path = os.path.join(directory_path, f"{timestamp}_{base_name}.md")
-    csv_output_path = os.path.join(directory_path, f"{timestamp}_{base_name}.csv")
-    full_csv_output_path = os.path.join(directory_path, f"{timestamp}_{base_name}_FULL_DF.csv")
+    markdown_output_path = os.path.join(REPORTS_DIR, f"{timestamp}_{base_name}.md")
+    csv_output_path = os.path.join(REPORTS_DIR, f"{timestamp}_{base_name}.csv")
+    full_csv_output_path = os.path.join(REPORTS_DIR, f"{timestamp}_{base_name}_FULL_DF.csv")
     
     return csv_output_path, full_csv_output_path, markdown_output_path
 
@@ -61,11 +62,10 @@ def export_dataframe_to_csv(df, filename, columns=None):
 
 # SAVE OUTPUTS TO DISK
 def save_outputs(main_df_dict, config):
-    csv_output_path, full_csv_output_path, markdown_output_path = generate_timestamped_output_paths(USER_PATH_CSV, OUTPUT_BASE_NAME)
+    csv_output_path, full_csv_output_path, markdown_output_path = generate_timestamped_output_paths(OUTPUT_BASE_NAME)
 
-    logging.info(f"Report CSV path: {csv_output_path}")
-    logging.info(f"Full CSV path: {full_csv_output_path}")
-    logging.info(f"Markdown path: {markdown_output_path}")
+    # Log output directory once instead of spamming with full paths
+    logging.info(f"Output directory: {os.path.abspath(REPORTS_DIR)}")
 
     if config.get('save_markdown', True):
         save_markdown(main_df_dict, markdown_output_path)
@@ -83,12 +83,12 @@ def save_markdown(main_df_dict, markdown_output_path):
     )
 
 def save_report_csv(main_df_dict, csv_output_path):
-    logging.info(f"Saving report DataFrame to {csv_output_path}")
     export_dataframe_to_csv(main_df_dict['report_dataframe'], filename=csv_output_path)
+    logging.info("Report CSV saved")
 
 def save_full_csv(main_df_dict, full_csv_output_path):
     if 'full_main_dataframe' in main_df_dict:
-        logging.info(f"Saving full DataFrame to {full_csv_output_path}")
         export_dataframe_to_csv(main_df_dict['full_main_dataframe'], filename=full_csv_output_path)
+        logging.info("Full DataFrame CSV saved")
     else:
         logging.warning("Warning: 'full_main_dataframe' key not found in main_df_dict. Full DataFrame not saved.")
