@@ -4,10 +4,9 @@ item_name_rp_cf,item_name_hm_cf,dot_struc_cf,item_type_rp_cf,item_type_hm_cf,cat
 none,.zsh_history,hm,none,file,term,Terminal,,zshrc,FALSE
 none,.zsh_history.bak,hm,none,file,term,Terminal,,zshrc,FALSE
 .zshrc_aliases,.zshrc_aliases,rp>hm,file,file_sym,term,Terminal,,zshrc,FALSE
-.zshrc_aliases__TESTING--9999,.zshrc_aliases,rp>hm,file,file_sym,term,Terminal,,zshrc,FALSE
-.zshrc_aliases__TESTING,.zshrc_aliases__TESTING,rp>hm,file,file_sym,term,Terminal,,zshrc,FALSE
 .zshrc_scripts,.zshrc_scripts,rp>hm,file,file_sym,term,Terminal,,zshrc,FALSE
 .zshrc_themes_omp,.zshrc_themes_omp,rp>hm,file,file_sym,term,Terminal,,zshrc,FALSE
+.zshrc_themes_ss,.zshrc_themes_ss,rp>hm,file,file_sym,term,Terminal,zsh theme settings (ss),zshrc,FALSE
 .zshrc_autocomplete1,.zshrc_autocomplete1,rp>hm,file,file_sym,term,Terminal,,zshrc,FALSE
 .zprofile,.zprofile,rp>hm,file,file_sym,term,Terminal,zsh profile file,zsh other,FALSE
 .zsh_sessions,.zsh_sessions,hm,none,folder,term,Terminal,Command history and state from previous zsh sessions,zsh other,FALSE
@@ -22,6 +21,7 @@ none,.zsh_history.bak,hm,none,file,term,Terminal,,zshrc,FALSE
 .iterm2_shell_integration.zsh,.iterm2_shell_integration.zsh,rp>hm,file,file_sym,term,Terminal,iTerm2 shell integration file,other,FALSE
 .iterm2,.iterm2,rp>hm,folder,folder_sym,term,Terminal,iTerm2 configuration files,other,FALSE
 .viminfo,.viminfo,hm,none,file,term,Terminal,,other,FALSE
+.node_repl_history,.node_repl_history,hm,none,file,term,Terminal,Node REPL history (local-only),other,FALSE
 .npm,.npm,rp>hm,folder,folder_sym,swd,Software Development,Node.js package manager,pkg mgrs plus,FALSE
 .npmrc,.npmrc,rp>hm,file,file_sym,swd,Software Development,Node.js package manager configuration file,pkg mgrs plus,FALSE
 .nvm,.nvm,rp>hm,folder,folder_sym,swd,Software Development,Node.js version manager,pkg mgrs plus,FALSE
@@ -55,10 +55,9 @@ none,.zsh_history.bak,hm,none,file,term,Terminal,,zshrc,FALSE
 .android,.android,rp>hm,folder,folder_sym,swd,Software Development,Android SDK,other,FALSE
 .degit,.degit,rp>hm,folder,folder_sym,swd,Software Development,quickly scaffold projects by downloading/extracting a repo,other,FALSE
 .gitignore_global,.gitignore_global,rp>hm,file,file_sym,swd,Software Development,Global .gitignore file,vcs git,FALSE
-.gitignore,.gitignore,rp,file,none,swd,Software Development,Repo .gitignore file,vcs git,FALSE
-.git,.git,rp,folder,none,swd,Software Development,Repo .git folder,vcs git,FALSE
 .gitflow_export,.gitflow_export,rp>hm,file,file_sym,swd,Software Development,GitFlow/Sourcetree getopt path (may be overwritten; re-run Dotbot),vcs git,FALSE
 .gitconfig,.gitconfig,rp>hm,file,file_sym,swd,Software Development,Git configuration file,vcs git,FALSE
+.stCommitMsg,.stCommitMsg,hm,none,file,swd,Software Development,Sourcetree commit msg temp (local-only),vcs git,FALSE
 .hgignore_global,.hgignore_global,rp>hm,file,file_sym,swd,Software Development,Global .hgignore file,vcs other,FALSE
 .subversion,.subversion,rp>hm,folder,folder_sym,swd,Software Development,Subversion configuration files,vcs other,FALSE
 .config,.config,rp>hm,folder,folder_sym,sys,System,,general,FALSE
@@ -78,4 +77,23 @@ none,.zsh_history.bak,hm,none,file,term,Terminal,,zshrc,FALSE
 .adobe,.adobe,rp>hm,folder,folder_sym,apps,Applications,,regular,FALSE
 .dropbox,.dropbox,rp>hm,folder,folder_sym,apps,Applications,,cloud,FALSE
 .pcloud,.pcloud,rp>hm,folder,folder_sym,apps,Applications,,cloud,FALSE
+.anthropic,.anthropic,hm,none,folder,apps,Applications,Anthropic local state (do not track),ai tools,FALSE
+.antigravity,.antigravity,hm,none,folder,apps,Applications,Antigravity local state (large; do not track),ai tools,FALSE
+.claude,.claude,hm,none,folder,apps,Applications,Claude local state (do not track),ai tools,FALSE
+.claude.json,.claude.json,hm,none,file,apps,Applications,Claude config JSON (local-only),ai tools,FALSE
+.claude.json.backup,.claude.json.backup,hm,none,file,apps,Applications,Claude config backup (local-only),ai tools,FALSE
+.claude.json.backup.1770701455166,.claude.json.backup.1770701455166,hm,none,file,apps,Applications,Claude config backup (local-only),ai tools,FALSE
+.claude.json.backup.1770701455194,.claude.json.backup.1770701455194,hm,none,file,apps,Applications,Claude config backup (local-only),ai tools,FALSE
+.claude.json.backup.1770701456277,.claude.json.backup.1770701456277,hm,none,file,apps,Applications,Claude config backup (local-only),ai tools,FALSE
+.claude.json.backup.1770701457172,.claude.json.backup.1770701457172,hm,none,file,apps,Applications,Claude config backup (local-only),ai tools,FALSE
+.claude.json.backup.1770701457449,.claude.json.backup.1770701457449,hm,none,file,apps,Applications,Claude config backup (local-only),ai tools,FALSE
+.codex,.codex,hm,none,folder,apps,Applications,Codex local state (auth/sessions; do not track),ai tools,FALSE
+.continue,.continue,hm,none,folder,apps,Applications,Continue local state (do not track),ai tools,FALSE
+.copilot,.copilot,hm,none,folder,apps,Applications,Copilot local state (do not track),ai tools,FALSE
+.cursor,.cursor,hm,none,folder,apps,Applications,Cursor local state (extensions; do not track),ai tools,FALSE
+.cursor-tutor,.cursor-tutor,hm,none,folder,apps,Applications,Cursor tutor local state (do not track),ai tools,FALSE
+.gemini,.gemini,hm,none,folder,apps,Applications,Gemini local state (may include creds),ai tools,FALSE
+.shade,.shade,hm,none,folder,apps,Applications,Shade local DB/models (do not track),ai tools,FALSE
+.swt,.swt,hm,none,folder,apps,Applications,SWT/Java tooling local state (do not track),tools,FALSE
+.__TEST_ITEM,.__TEST_ITEM,hm,none,folder,oth,Other,Test folder (safe to delete),test,FALSE
 .omniboard,.omniboard,rp>hm,folder,folder_sym,oth,Other,Omniboard project management tool,projects,FALSE
