@@ -1,99 +1,95 @@
-item_name_rp_cf,item_name_hm_cf,dot_struc_cf,item_type_rp_cf,item_type_hm_cf,cat_1_cf,cat_1_name_cf,comment_cf,cat_2_cf,no_show_cf
-._dotfiles,._dotfiles,hm,none,folder,term,Terminal,~/._dotfiles/._dotfiles_srb_repo,dotfile mgmt,FALSE
-.zshrc,.zshrc,rp>hm,file,file_sym,term,Terminal,,zshrc,FALSE
-none,.zsh_history,hm,none,file,term,Terminal,,zshrc,FALSE
-none,.zsh_history.bak,hm,none,file,term,Terminal,,zshrc,FALSE
-.zshrc_aliases,.zshrc_aliases,rp>hm,file,file_sym,term,Terminal,,zshrc,FALSE
-.zshrc_scripts,.zshrc_scripts,rp>hm,file,file_sym,term,Terminal,,zshrc,FALSE
-.zshrc_themes_omp,.zshrc_themes_omp,rp>hm,file,file_sym,term,Terminal,,zshrc,FALSE
-.zshrc_themes_ss,.zshrc_themes_ss,rp>hm,file,file_sym,term,Terminal,zsh theme settings (ss),zshrc,FALSE
-.zshrc_autocomplete1,.zshrc_autocomplete1,rp>hm,file,file_sym,term,Terminal,,zshrc,FALSE
-.zprofile,.zprofile,rp>hm,file,file_sym,term,Terminal,zsh profile file,zsh other,FALSE
-.zsh_sessions,.zsh_sessions,hm,none,folder,term,Terminal,Command history and state from previous zsh sessions,zsh other,FALSE
-.zcompdump-srb_mbp23-5.9,.zcompdump-srb_mbp23-5.9,hm,none,file,term,Terminal,zsh completion dump file,zsh other,FALSE
-.zcompdump-srb_mbp23-5.9.zwc,.zcompdump-srb_mbp23-5.9.zwc,hm,none,file,term,Terminal,,zsh other,FALSE
-.zcompdump,.zcompdump,hm,none,file,term,Terminal,,zsh other,FALSE
-.oh-my-posh,.oh-my-posh,rp>hm,folder,folder_sym,term,Terminal,,zsh themes,FALSE
-.bashrc,.bashrc,rp>hm,file,file_sym,term,Terminal,,bash,FALSE
-.bash_history,.bash_history,hm,none,file,term,Terminal,,bash,FALSE
-.bash_sessions,.bash_sessions,hm,none,folder,term,Terminal,Command history and state from previous bash sessions,bash,FALSE
-.sh_history,.sh_history,hm,none,file,term,Terminal,Shell history file,bash,FALSE
-.iterm2_shell_integration.zsh,.iterm2_shell_integration.zsh,rp>hm,file,file_sym,term,Terminal,iTerm2 shell integration file,other,FALSE
-.iterm2,.iterm2,rp>hm,folder,folder_sym,term,Terminal,iTerm2 configuration files,other,FALSE
-.viminfo,.viminfo,hm,none,file,term,Terminal,,other,FALSE
-.node_repl_history,.node_repl_history,hm,none,file,term,Terminal,Node REPL history (local-only),other,FALSE
-.npm,.npm,rp>hm,folder,folder_sym,swd,Software Development,Node.js package manager,pkg mgrs plus,FALSE
-.npmrc,.npmrc,rp>hm,file,file_sym,swd,Software Development,Node.js package manager configuration file,pkg mgrs plus,FALSE
-.nvm,.nvm,rp>hm,folder,folder_sym,swd,Software Development,Node.js version manager,pkg mgrs plus,FALSE
-.yarnrc,.yarnrc,rp>hm,file,file_sym,swd,Software Development,Yarn package manager,pkg mgrs plus,FALSE
-.node-gyp,.node-gyp,rp>hm,folder,folder_sym,swd,Software Development,Node.js native addon build tool,pkg mgrs plus,FALSE
-.docker,.docker,hm,none,folder,swd,Software Development,Docker Desktop state (local-only; do not track),pkg mgrs plus,FALSE
-.gem,.gem,rp>hm,folder,folder_sym,swd,Software Development,Ruby Gems (Ruby libraries and packages),pkg mgrs plus,FALSE
-.vuerc,.vuerc,rp>hm,file,file_sym,swd,Software Development,Vue.js configuration file,frameworks,FALSE
-.vue-cli-ui,.vue-cli-ui,rp>hm,folder,folder_sym,swd,Software Development,Vue.js CLI User Interface config,frameworks,FALSE
-.nuxtrc,.nuxtrc,rp>hm,file,file_sym,swd,Software Development,Nuxt.js configuration file,frameworks,FALSE
-.python_history,.python_history,rp>hm,file,file_sym,swd,Software Development,,python,FALSE
-.pyenv,.pyenv,rp>hm,folder,folder_sym,swd,Software Development,Python version manager,python,FALSE
-.ipython,.ipython,rp>hm,folder,folder_sym,swd,Software Development,Python interactive shell,python,FALSE
-.pylint.d,.pylint.d,rp>hm,folder,folder_sym,swd,Software Development,Python linting tool,python,FALSE
-.matplotlib,.matplotlib,rp>hm,folder,folder_sym,swd,Software Development,Python plotting library,python,FALSE
-.streamlit,.streamlit,rp>hm,folder,folder_sym,swd,Software Development,Python framework for creating interactive web apps,python,FALSE
-.jupyter,.jupyter,rp>hm,folder,folder_sym,swd,Software Development,Python interactive computing,python,FALSE
-.vscode,.vscode,rp>hm,folder,folder_sym,swd,Software Development,,microsoft,FALSE
-.vscode-react-native,.vscode-react-native,rp>hm,folder,folder_sym,swd,Software Development,Visual Studio Code extension for React Native,microsoft,FALSE
-.dotnet,.dotnet,rp>hm,folder,folder_sym,swd,Software Development,.NET SDK,microsoft,FALSE
-.nuget,.nuget,rp>hm,folder,folder_sym,swd,Software Development,.NET package manager,microsoft,FALSE
-.mono,.mono,rp>hm,folder,folder_sym,swd,Software Development,Mono runtime (cross-platform .NET),microsoft,FALSE
-.aspnet,.aspnet,rp>hm,folder,folder_sym,swd,Software Development,ASP.NET Core,microsoft,FALSE
-.ms_eclipsetemurinjdk_config,.ms_eclipsetemurinjdk_config,rp>hm,file,file_sym,swd,Software Development,Microsoft Eclipse Temurin JDK configuration file,microsoft,FALSE
-.ms_openjdk_config,.ms_openjdk_config,rp>hm,file,file_sym,swd,Software Development,Microsoft OpenJDK configuration file,microsoft,FALSE
-.swiftpm,.swiftpm,rp>hm,folder,folder_sym,swd,Software Development,"Xcode: Stores Swift pkg dependencies, build artifacts, & md",other,FALSE
-.quokka,.quokka,rp>hm,folder,folder_sym,swd,Software Development,debugging tool for JavaScript & TypeScript,other,FALSE
-.sonar,.sonar,rp>hm,folder,folder_sym,swd,Software Development,"SonarQube, a tool for continuous inspection of code quality",other,FALSE
-.flowise,.flowise,rp>hm,folder,folder_sym,swd,Software Development,LLM AI No-code coding tool,other,FALSE
-.installbuilder,.installbuilder,rp>hm,folder,folder_sym,swd,Software Development,dev tool for building cross-platform installers for dtop & server sw,other,FALSE
-.android,.android,rp>hm,folder,folder_sym,swd,Software Development,Android SDK,other,FALSE
-.degit,.degit,rp>hm,folder,folder_sym,swd,Software Development,quickly scaffold projects by downloading/extracting a repo,other,FALSE
-.gitignore_global,.gitignore_global,rp>hm,file,file_sym,swd,Software Development,Global .gitignore file,vcs git,FALSE
-.gitflow_export,.gitflow_export,rp>hm,file,file_sym,swd,Software Development,GitFlow/Sourcetree getopt path (may be overwritten; re-run Dotbot),vcs git,FALSE
-.gitconfig,.gitconfig,rp>hm,file,file_sym,swd,Software Development,Git configuration file,vcs git,FALSE
-.stCommitMsg,.stCommitMsg,hm,none,file,swd,Software Development,Sourcetree commit msg temp (local-only),vcs git,FALSE
-.hgignore_global,.hgignore_global,rp>hm,file,file_sym,swd,Software Development,Global .hgignore file,vcs other,FALSE
-.subversion,.subversion,rp>hm,folder,folder_sym,swd,Software Development,Subversion configuration files,vcs other,FALSE
-.config,.config,rp>hm,folder,folder_sym,sys,System,,general,FALSE
-.cache,.cache,rp>hm,folder,folder_sym,sys,System,,general,FALSE
-.local,.local,rp>hm,folder,folder_sym,sys,System,,general,FALSE
-.IdentityService,.IdentityService,rp>hm,folder,folder_sym,sys,System,,macos,FALSE
-.DS_Store,.DS_Store,rp>hm,file,file_sym,sys,System,,macos,TRUE
-.Trash,.Trash,hm,none,folder,sys,System,,macos,TRUE
-.CFUserTextEncoding,.CFUserTextEncoding,rp>hm,file,file_sym,sys,System,macOS - stores the user’s preferred text encoding settings,macos,FALSE
-.netrc,.netrc,rp>hm,file,file_sym,sys,System,Unix file stores login & init info for connecting to remote systems,unix,FALSE
-.thumbnails,.thumbnails,rp>hm,folder,folder_sym,sys,System,Thumbnail cache,unix,FALSE
-.ssh,.ssh,hm,none,folder,sys,System,SSH keys/config local-only (do not track),unix,FALSE
-.fontconfig,.fontconfig,rp>hm,folder,folder_sym,sys,System,Unix font configuration,unix,FALSE
-.lesshst,.lesshst,hm,none,file,sys,System,command history file for the Unix less text viewer command,unix,FALSE
-.cups,.cups,rp>hm,folder,folder_sym,sys,System,Common Unix Printing System,unix,FALSE
-.Xencelabs,.Xencelabs,rp>hm,folder,folder_sym,apps,Applications,Xencelabs dedicated controller config,regular,FALSE
-.adobe,.adobe,rp>hm,folder,folder_sym,apps,Applications,,regular,FALSE
-.dropbox,.dropbox,rp>hm,folder,folder_sym,apps,Applications,,cloud,FALSE
-.pcloud,.pcloud,rp>hm,folder,folder_sym,apps,Applications,,cloud,FALSE
-.anthropic,.anthropic,hm,none,folder,apps,Applications,Anthropic local state (do not track),ai tools,FALSE
-.antigravity,.antigravity,hm,none,folder,apps,Applications,Antigravity local state (large; do not track),ai tools,FALSE
-.claude,.claude,hm,none,folder,apps,Applications,Claude local state (do not track),ai tools,FALSE
-.claude.json,.claude.json,hm,none,file,apps,Applications,Claude config JSON (local-only),ai tools,FALSE
-.claude.json.backup,.claude.json.backup,hm,none,file,apps,Applications,Claude config backup (local-only),ai tools,FALSE
-.claude.json.backup.1770701455166,.claude.json.backup.1770701455166,hm,none,file,apps,Applications,Claude config backup (local-only),ai tools,FALSE
-.claude.json.backup.1770701455194,.claude.json.backup.1770701455194,hm,none,file,apps,Applications,Claude config backup (local-only),ai tools,FALSE
-.claude.json.backup.1770701456277,.claude.json.backup.1770701456277,hm,none,file,apps,Applications,Claude config backup (local-only),ai tools,FALSE
-.claude.json.backup.1770701457172,.claude.json.backup.1770701457172,hm,none,file,apps,Applications,Claude config backup (local-only),ai tools,FALSE
-.claude.json.backup.1770701457449,.claude.json.backup.1770701457449,hm,none,file,apps,Applications,Claude config backup (local-only),ai tools,FALSE
-.codex,.codex,hm,none,folder,apps,Applications,Codex local state (auth/sessions; do not track),ai tools,FALSE
-.continue,.continue,hm,none,folder,apps,Applications,Continue local state (do not track),ai tools,FALSE
-.copilot,.copilot,hm,none,folder,apps,Applications,Copilot local state (do not track),ai tools,FALSE
-.cursor,.cursor,hm,none,folder,apps,Applications,Cursor local state (extensions; do not track),ai tools,FALSE
-.cursor-tutor,.cursor-tutor,hm,none,folder,apps,Applications,Cursor tutor local state (do not track),ai tools,FALSE
-.gemini,.gemini,hm,none,folder,apps,Applications,Gemini local state (may include creds),ai tools,FALSE
-.shade,.shade,hm,none,folder,apps,Applications,Shade local DB/models (do not track),ai tools,FALSE
-.swt,.swt,hm,none,folder,apps,Applications,SWT/Java tooling local state (do not track),tools,FALSE
-.__TEST_ITEM,.__TEST_ITEM,hm,none,folder,oth,Other,Test folder (safe to delete),test,FALSE
-.omniboard,.omniboard,rp>hm,folder,folder_sym,oth,Other,Omniboard project management tool,projects,FALSE
+item_name_rp_cf,item_name_hm_cf,dot_struc_cf,item_type_rp_cf,item_type_hm_cf,cat_1_cf,cat_1_name_cf,comment_cf,cat_2_cf,repo_scope_cf,no_show_cf
+._dotfiles,._dotfiles,hm,none,folder,term,Terminal,~/._dotfiles/._dotfiles_srb_repo,dotfile mgmt,local,FALSE
+.zshrc,.zshrc,rp>hm,file,file_sym,term,Terminal,,zshrc,public,FALSE
+none,.zshrc_SUPPORT (alia),hm,none,file_alias,term,Terminal,Finder alias support artifact (local-only),zshrc,local,FALSE
+none,.zsh_history,hm,none,file,term,Terminal,,zshrc,local,FALSE
+none,.zsh_history.bak,hm,none,file,term,Terminal,,zshrc,local,FALSE
+.zshrc_aliases,.zshrc_aliases,rp>hm,file,file_sym,term,Terminal,,zshrc,public,FALSE
+.zshrc_scripts,.zshrc_scripts,rp>hm,file,file_sym,term,Terminal,,zshrc,public,FALSE
+.zshrc_themes_omp,.zshrc_themes_omp,rp>hm,file,file_sym,term,Terminal,,zshrc,public,FALSE
+.zshrc_themes_ss,.zshrc_themes_ss,rp>hm,file,file_sym,term,Terminal,zsh theme settings (ss),zshrc,public,FALSE
+.zshrc_autocomplete1,.zshrc_autocomplete1,rp>hm,file,file_sym,term,Terminal,,zshrc,public,FALSE
+.zprofile,.zprofile,rp>hm,file,file_sym,term,Terminal,zsh profile file,zsh other,public,FALSE
+.zsh_sessions,.zsh_sessions,hm,none,folder,term,Terminal,Command history and state from previous zsh sessions,zsh other,local,FALSE
+.zcompdump-srb_mbp23-5.9,.zcompdump-srb_mbp23-5.9,hm,none,file,term,Terminal,zsh completion dump file,zsh other,local,FALSE
+.zcompdump-srb_mbp23-5.9.zwc,.zcompdump-srb_mbp23-5.9.zwc,hm,none,file,term,Terminal,,zsh other,local,FALSE
+.zcompdump,.zcompdump,hm,none,file,term,Terminal,,zsh other,local,FALSE
+.oh-my-posh,.oh-my-posh,rp>hm,folder,folder_sym,term,Terminal,,zsh themes,public,FALSE
+.bashrc,.bashrc,rp>hm,file,file_sym,term,Terminal,,bash,public,FALSE
+.bash_history,.bash_history,hm,none,file,term,Terminal,,bash,local,FALSE
+.bash_sessions,.bash_sessions,hm,none,folder,term,Terminal,Command history and state from previous bash sessions,bash,local,FALSE
+.sh_history,.sh_history,hm,none,file,term,Terminal,Shell history file,bash,local,FALSE
+.iterm2_shell_integration.zsh,.iterm2_shell_integration.zsh,rp>hm,file,file_sym,term,Terminal,iTerm2 shell integration file,other,public,FALSE
+.iterm2,.iterm2,rp>hm,folder,folder_sym,term,Terminal,iTerm2 configuration files,other,public,FALSE
+.viminfo,.viminfo,hm,none,file,term,Terminal,,other,local,FALSE
+none,.node_repl_history,hm,none,file,term,Terminal,Node REPL history (local-only),other,local,FALSE
+.npm,.npm,rp>hm,folder,folder_sym,swd,Software Development,Node.js package manager,pkg mgrs plus,public,FALSE
+.npmrc,.npmrc,rp>hm,file,file_sym,swd,Software Development,Node.js package manager configuration file,pkg mgrs plus,public,FALSE
+.nvm,.nvm,rp>hm,folder,folder_sym,swd,Software Development,Node.js version manager,pkg mgrs plus,public,FALSE
+.yarnrc,.yarnrc,rp>hm,file,file_sym,swd,Software Development,Yarn package manager,pkg mgrs plus,public,FALSE
+.node-gyp,.node-gyp,rp>hm,folder,folder_sym,swd,Software Development,Node.js native addon build tool,pkg mgrs plus,public,FALSE
+.docker,.docker,hm,none,folder,swd,Software Development,Docker Desktop state (local-only; do not track),pkg mgrs plus,local,FALSE
+.gem,.gem,rp>hm,folder,folder_sym,swd,Software Development,Ruby Gems (Ruby libraries and packages),pkg mgrs plus,public,FALSE
+.vuerc,.vuerc,rp>hm,file,file_sym,swd,Software Development,Vue.js configuration file,frameworks,public,FALSE
+.vue-cli-ui,.vue-cli-ui,rp>hm,folder,folder_sym,swd,Software Development,Vue.js CLI User Interface config,frameworks,public,FALSE
+.nuxtrc,.nuxtrc,rp>hm,file,file_sym,swd,Software Development,Nuxt.js configuration file,frameworks,public,FALSE
+.python_history,.python_history,rp>hm,file,file_sym,swd,Software Development,,python,public,FALSE
+.pyenv,.pyenv,rp>hm,folder,folder_sym,swd,Software Development,Python version manager,python,public,FALSE
+.ipython,.ipython,rp>hm,folder,folder_sym,swd,Software Development,Python interactive shell,python,public,FALSE
+.pylint.d,.pylint.d,rp>hm,folder,folder_sym,swd,Software Development,Python linting tool,python,public,FALSE
+.matplotlib,.matplotlib,rp>hm,folder,folder_sym,swd,Software Development,Python plotting library,python,public,FALSE
+.streamlit,.streamlit,rp>hm,folder,folder_sym,swd,Software Development,Python framework for creating interactive web apps,python,public,FALSE
+.jupyter,.jupyter,rp>hm,folder,folder_sym,swd,Software Development,Python interactive computing,python,public,FALSE
+.vscode,.vscode,rp>hm,folder,folder_sym,swd,Software Development,,microsoft,public,FALSE
+.vscode-react-native,.vscode-react-native,rp>hm,folder,folder_sym,swd,Software Development,Visual Studio Code extension for React Native,microsoft,public,FALSE
+.dotnet,.dotnet,rp>hm,folder,folder_sym,swd,Software Development,.NET SDK,microsoft,public,FALSE
+.nuget,.nuget,rp>hm,folder,folder_sym,swd,Software Development,.NET package manager,microsoft,public,FALSE
+.mono,.mono,rp>hm,folder,folder_sym,swd,Software Development,Mono runtime (cross-platform .NET),microsoft,public,FALSE
+.aspnet,.aspnet,rp>hm,folder,folder_sym,swd,Software Development,ASP.NET Core,microsoft,public,FALSE
+.ms_eclipsetemurinjdk_config,.ms_eclipsetemurinjdk_config,rp>hm,file,file_sym,swd,Software Development,Microsoft Eclipse Temurin JDK configuration file,microsoft,public,FALSE
+.ms_openjdk_config,.ms_openjdk_config,rp>hm,file,file_sym,swd,Software Development,Microsoft OpenJDK configuration file,microsoft,public,FALSE
+.swiftpm,.swiftpm,rp>hm,folder,folder_sym,swd,Software Development,"Xcode: Stores Swift pkg dependencies, build artifacts, & md",other,public,FALSE
+.quokka,.quokka,rp>hm,folder,folder_sym,swd,Software Development,debugging tool for JavaScript & TypeScript,other,public,FALSE
+.sonar,.sonar,rp>hm,folder,folder_sym,swd,Software Development,"SonarQube, a tool for continuous inspection of code quality",other,public,FALSE
+.flowise,.flowise,rp>hm,folder,folder_sym,swd,Software Development,LLM AI No-code coding tool,other,public,FALSE
+.installbuilder,.installbuilder,rp>hm,folder,folder_sym,swd,Software Development,dev tool for building cross-platform installers for dtop & server sw,other,public,FALSE
+.android,.android,rp>hm,folder,folder_sym,swd,Software Development,Android SDK,other,public,FALSE
+.degit,.degit,rp>hm,folder,folder_sym,swd,Software Development,quickly scaffold projects by downloading/extracting a repo,other,public,FALSE
+.gitignore_global,.gitignore_global,rp>hm,file,file_sym,swd,Software Development,Global .gitignore file,vcs git,public,FALSE
+.gitflow_export,.gitflow_export,rp>hm,file,file_sym,swd,Software Development,GitFlow/Sourcetree getopt path (may be overwritten; re-run Dotbot),vcs git,public,FALSE
+.gitconfig,.gitconfig,rp>hm,file,file_sym,swd,Software Development,Git configuration file,vcs git,public,FALSE
+none,.stCommitMsg,hm,none,file,swd,Software Development,Sourcetree commit msg temp (local-only),vcs git,local,FALSE
+.hgignore_global,.hgignore_global,rp>hm,file,file_sym,swd,Software Development,Global .hgignore file,vcs other,public,FALSE
+.subversion,.subversion,rp>hm,folder,folder_sym,swd,Software Development,Subversion configuration files,vcs other,public,FALSE
+.config,.config,rp>hm,folder,folder_sym,sys,System,,general,public,FALSE
+.cache,.cache,rp>hm,folder,folder_sym,sys,System,,general,public,FALSE
+.local,.local,rp>hm,folder,folder_sym,sys,System,,general,public,FALSE
+.IdentityService,.IdentityService,rp>hm,folder,folder_sym,sys,System,,macos,public,FALSE
+.DS_Store,.DS_Store,rp>hm,file,file_sym,sys,System,,macos,public,TRUE
+.Trash,.Trash,hm,none,folder,sys,System,,macos,local,TRUE
+.CFUserTextEncoding,.CFUserTextEncoding,rp>hm,file,file_sym,sys,System,macOS - stores the user’s preferred text encoding settings,macos,public,FALSE
+.netrc,.netrc,rp>hm,file,file_sym,sys,System,Unix file stores login & init info for connecting to remote systems,unix,public,FALSE
+.thumbnails,.thumbnails,rp>hm,folder,folder_sym,sys,System,Thumbnail cache,unix,public,FALSE
+.ssh,.ssh,hm,none,folder,sys,System,SSH keys/config local-only (do not track),unix,local,FALSE
+.fontconfig,.fontconfig,rp>hm,folder,folder_sym,sys,System,Unix font configuration,unix,public,FALSE
+.lesshst,.lesshst,hm,none,file,sys,System,command history file for the Unix less text viewer command,unix,local,FALSE
+.cups,.cups,rp>hm,folder,folder_sym,sys,System,Common Unix Printing System,unix,public,FALSE
+.Xencelabs,.Xencelabs,rp>hm,folder,folder_sym,apps,Applications,Xencelabs dedicated controller config,regular,public,FALSE
+.adobe,.adobe,rp>hm,folder,folder_sym,apps,Applications,,regular,public,FALSE
+.dropbox,.dropbox,rp>hm,folder,folder_sym,apps,Applications,,cloud,public,FALSE
+.pcloud,.pcloud,rp>hm,folder,folder_sym,apps,Applications,,cloud,public,FALSE
+.anthropic,.anthropic,rp>hm,folder,folder_sym,apps,Applications,Anthropic config/state in private local repo,ai tools,private,FALSE
+.antigravity,.antigravity,rp>hm,folder,folder_sym,apps,Applications,Antigravity state in private repo (gitignored),ai tools,private,FALSE
+.claude,.claude,rp>hm,folder,folder_sym,apps,Applications,Claude state in private repo (gitignored),ai tools,private,FALSE
+.claude.json,.claude.json,rp>hm,file,file_sym,apps,Applications,Claude config JSON in private local repo,ai tools,private,FALSE
+.claude.json.backup,.claude.json.backup,rp>hm,file,file_sym,apps,Applications,Claude config backup in private local repo,ai tools,private,FALSE
+.codex,.codex,rp>hm,folder,folder_sym,apps,Applications,Codex state in private repo (gitignored),ai tools,private,FALSE
+.continue,.continue,rp>hm,folder,folder_sym,apps,Applications,Continue config/state in private local repo,ai tools,private,FALSE
+.copilot,.copilot,rp>hm,folder,folder_sym,apps,Applications,Copilot config/state in private local repo,ai tools,private,FALSE
+.cursor,.cursor,rp>hm,folder,folder_sym,apps,Applications,Cursor state in private repo (gitignored),ai tools,private,FALSE
+none,.cursor-tutor,hm,none,folder,apps,Applications,Cursor tutor local state (do not track),ai tools,local,FALSE
+.gemini,.gemini,rp>hm,folder,folder_sym,apps,Applications,Gemini config/state in private local repo,ai tools,private,FALSE
+none,.shade,hm,none,folder,apps,Applications,Shade local DB/models (do not track),ai tools,local,FALSE
+none,.swt,hm,none,folder,apps,Applications,SWT/Java tooling local state (do not track),tools,local,FALSE
+.__TEST_ITEM,.__TEST_ITEM,hm,none,folder,oth,Other,Test fixture for mac-dot-report (do not delete in housekeeping),test,local,FALSE
+.omniboard,.omniboard,rp>hm,folder,folder_sym,oth,Other,Omniboard project management tool,projects,public,FALSE

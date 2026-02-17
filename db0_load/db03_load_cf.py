@@ -8,6 +8,17 @@ def correct_and_validate_user_config_df(user_config_df):
     user_config_df['comment_cf'] = user_config_df['comment_cf'].fillna('')
     return user_config_df
 
+
+def infer_repo_scope_from_dot_struc(dot_struc_val):
+    """Backfill repo scope when older config files do not include repo_scope_cf."""
+    if pd.isna(dot_struc_val):
+        return "local"
+    if dot_struc_val in ("rp>hm", "rp"):
+        return "public"
+    if dot_struc_val == "hm":
+        return "local"
+    return "local"
+
 def load_cf_dataframe():
     try:
         user_config_file_path = "./data/dotrep_config.csv"
@@ -25,6 +36,25 @@ def load_cf_dataframe():
             "comment_cf": f_types_vals["comment_cf"]['dtype'],
             "no_show_cf": f_types_vals["no_show_cf"]['dtype']
         }).copy()
+
+        # Backward-compatible repo scope support:
+        # - If column is missing, infer from dot_struc_cf.
+        # - If present but blank, backfill from dot_struc_cf.
+        if "repo_scope_cf" not in user_config_df.columns:
+            user_config_df["repo_scope_cf"] = user_config_df["dot_struc_cf"].apply(infer_repo_scope_from_dot_struc)
+        else:
+            user_config_df["repo_scope_cf"] = user_config_df["repo_scope_cf"].fillna(
+                user_config_df["dot_struc_cf"].apply(infer_repo_scope_from_dot_struc)
+            )
+            user_config_df["repo_scope_cf"] = user_config_df["repo_scope_cf"].replace(
+                to_replace=["", "None", "nan"], value=pd.NA
+            )
+            user_config_df["repo_scope_cf"] = user_config_df["repo_scope_cf"].fillna(
+                user_config_df["dot_struc_cf"].apply(infer_repo_scope_from_dot_struc)
+            )
+        user_config_df["repo_scope_cf"] = user_config_df["repo_scope_cf"].astype(
+            f_types_vals["repo_scope_cf"]['dtype']
+        )
 
         # Record the original order of rows
         user_config_df['sort_orig'] = (user_config_df.index + 1).astype(f_types_vals["sort_orig"]['dtype'])  # Convert to Int64 explicitly

@@ -42,6 +42,9 @@ f_types_vals = {
     'item_type_hm_cf': {'dtype': 'string', 'default': np.nan},
     'item_type_repo': {'dtype': 'string', 'default': np.nan},
     'item_type_home': {'dtype': 'string', 'default': np.nan},
+    'repo_scope_rp': {'dtype': 'string', 'default': np.nan},
+    'repo_scope_db': {'dtype': 'string', 'default': np.nan},
+    'repo_scope_cf': {'dtype': 'string', 'default': np.nan},
 
     # Other Fields
     'git_rp': {'dtype': 'bool', 'default': np.nan},

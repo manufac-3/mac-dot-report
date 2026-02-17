@@ -7,32 +7,67 @@ from db1_main_df.db14_merge_sup import get_next_unique_id
 from .db05_get_filetype import determine_item_type
 from db5_global.db52_dtype_dict import f_types_vals
 
+EXCLUDED_REPO_ITEMS = {".git", ".gitignore", ".DS_Store"}
+
+
+def get_repo_scope_paths():
+    """Return configured repo roots for multi-repo dotfiles scanning."""
+    home_dir_path = os.path.expanduser("~")
+    return {
+        "public": os.path.join(home_dir_path, "._dotfiles/dotfiles_srb_repo"),
+        "private": os.path.join(home_dir_path, "._dotfiles/dotfiles_srb_repo_private"),
+    }
+
+
 def load_rp_dataframe():
     repo_items = []
-   
-    home_dir_path = os.path.expanduser("~")  # Define the home directory path
-    repo_path = os.path.join(home_dir_path, "._dotfiles/dotfiles_srb_repo")  # Define the repo path
+    item_sources = {}
+    repo_scope_paths = get_repo_scope_paths()
 
-    for item in os.listdir(repo_path):
-        if item.startswith("."):
-            item_path = os.path.join(repo_path, item)
-            item_type = determine_item_type(item_path)
-            repo_items.append({
-                "item_name_rp": item,
-                "item_type_rp": item_type,
-                "unique_id_rp": get_next_unique_id()
-            })
+    for repo_scope, repo_path in repo_scope_paths.items():
+        if not os.path.isdir(repo_path):
+            logging.info(f"Repo path not found for scope '{repo_scope}': {repo_path}")
+            continue
 
-    df = pd.DataFrame(repo_items).copy()
+        for item in os.listdir(repo_path):
+            if item.startswith("."):
+                if item in EXCLUDED_REPO_ITEMS:
+                    continue
+                item_path = os.path.join(repo_path, item)
+                item_type = determine_item_type(item_path)
 
-    # Explicitly set data types using the first element (data type) from f_types_vals
+                item_sources.setdefault(item, set()).add(repo_scope)
+                repo_items.append({
+                    "item_name_rp": item,
+                    "item_type_rp": item_type,
+                    "repo_scope_rp": repo_scope,
+                    "unique_id_rp": get_next_unique_id(),
+                })
+
+    collisions = {
+        item_name: sorted(list(scopes))
+        for item_name, scopes in item_sources.items()
+        if len(scopes) > 1
+    }
+    if collisions:
+        lines = ["Dot item name collision across repos:"]
+        for item_name in sorted(collisions):
+            lines.append(f"- {item_name}: {', '.join(collisions[item_name])}")
+        raise ValueError("\n".join(lines))
+
+    df = pd.DataFrame(
+        repo_items,
+        columns=["item_name_rp", "item_type_rp", "repo_scope_rp", "unique_id_rp"],
+    ).copy()
+
+    # Explicitly set data types.
     df["item_name_rp"] = df["item_name_rp"].astype(f_types_vals["item_name_rp"]['dtype'])
     df["item_type_rp"] = df["item_type_rp"].astype(f_types_vals["item_type_rp"]['dtype'])
+    df["repo_scope_rp"] = df["repo_scope_rp"].astype(f_types_vals["repo_scope_rp"]['dtype'])
     df["unique_id_rp"] = df["unique_id_rp"].astype(f_types_vals["unique_id_rp"]['dtype'])
 
-
-    # Create the git_rp column based on .gitignore
-    df = create_git_rp_column(df, repo_path)
+    # Create the git_rp column based on each repo's .gitignore.
+    df = create_git_rp_column(df, repo_scope_paths)
 
     # Input dataframe display toggle
     show_output = False
@@ -40,25 +75,30 @@ def load_rp_dataframe():
 
     return df
 
-def create_git_rp_column(df, repo_path):
-    # Retrieve gitignore items and their types (file or folder)
-    gitignore_items = read_gitignore_items(repo_path)
+def create_git_rp_column(df, repo_scope_paths):
+    # Retrieve .gitignore patterns per repo scope.
+    gitignore_items_by_scope = {}
+    for repo_scope, repo_path in repo_scope_paths.items():
+        gitignore_items_by_scope[repo_scope] = read_gitignore_items(repo_path)
 
-    # Iterate through every item in the DataFrame and compare against gitignore items
+    # Iterate through every item in the DataFrame and compare against scope-specific .gitignore items.
     for idx, row in df.iterrows():
         item_name = row['item_name_rp']
         item_type = row['item_type_rp']
+        repo_scope = row.get('repo_scope_rp')
 
-        # Initialize the git_rp column with True (assuming it's tracked)
+        # Initialize the git_rp column with True (assuming it's tracked).
         df.at[idx, 'git_rp'] = True
 
-        # Compare with gitignore items
+        # Compare with the corresponding scope's .gitignore patterns.
+        gitignore_items = gitignore_items_by_scope.get(repo_scope, {})
         for pattern, pattern_type in gitignore_items.items():
-            # Use fnmatch to compare names and types
+            # Use fnmatch to compare names and types.
             if fnmatch.fnmatch(item_name, pattern) and item_type == pattern_type:
-                df.at[idx, 'git_rp'] = False  # Mark as untracked
-                # print(f"Match found: {item_name} ({item_type}) matches {pattern}")
-                break  # Stop checking once a match is found
+                df.at[idx, 'git_rp'] = False
+                break
+
+    df['git_rp'] = df['git_rp'].astype(f_types_vals["git_rp"]['dtype'])
 
     return df
 

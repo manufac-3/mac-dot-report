@@ -26,7 +26,17 @@
 #### {{ item.cat_1_cf }}: {{ item.cat_2_cf }}
 {% endif %}
 
-- {% if item.item_type == 'folder' %}**{{ item.item_name }}{% if item.comment_cf %} | {{ item.comment_cf.strip() }}{% endif %} (ƒ)**{% else %}{{ item.item_name }}{% if item.comment_cf %} | {{ item.comment_cf.strip() }}{% endif %}{% endif %}
+{% set scope_val = item.repo_scope_cf %}
+{% if scope_val is none or scope_val == 'None' or scope_val == 'nan' or scope_val == '' %}
+  {% if item.dot_struc == 'hm' %}
+    {% set scope_val = 'local' %}
+  {% elif item.dot_struc == 'rp' or item.dot_struc == 'rp>hm' %}
+    {% set scope_val = 'public' %}
+  {% else %}
+    {% set scope_val = 'local' %}
+  {% endif %}
+{% endif %}
+- {% if item.item_type == 'folder' %}**{{ item.item_name }} [{{ scope_val }}]{% if item.comment_cf %} | {{ item.comment_cf.strip() }}{% endif %} (ƒ)**{% else %}{{ item.item_name }} [{{ scope_val }}]{% if item.comment_cf %} | {{ item.comment_cf.strip() }}{% endif %}{% endif %}
 {% endfor %}
 
 ---

@@ -51,9 +51,9 @@ def reorder_dfm_cols_perm(df):
     # Define the desired column order based on the provided fields
     desired_order = [
         'item_name', 'item_type', 'unique_id',
-        'item_name_rp', 'item_type_rp', 'git_rp', 'item_name_hm', 'item_type_hm',
-        'item_name_hm_db', 'item_type_hm_db', 'item_name_rp_db', 'item_type_rp_db',
-        'item_name_rp_cf', 'item_type_rp_cf', 'item_name_hm_cf', 'item_type_hm_cf',
+        'item_name_rp', 'item_type_rp', 'repo_scope_rp', 'git_rp', 'item_name_hm', 'item_type_hm',
+        'item_name_hm_db', 'item_type_hm_db', 'item_name_rp_db', 'item_type_rp_db', 'repo_scope_db',
+        'item_name_rp_cf', 'item_type_rp_cf', 'item_name_hm_cf', 'item_type_hm_cf', 'repo_scope_cf',
         'dot_struc_cf', 'cat_1_cf', 'cat_1_name_cf', 'cat_2_cf', 'comment_cf', 'no_show_cf',
         'sort_orig',
         'unique_id_rp', 'unique_id_db', 'unique_id_hm', 'unique_id_cf',
