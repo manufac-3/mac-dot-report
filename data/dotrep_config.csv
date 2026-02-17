@@ -10,15 +10,15 @@ none,.zsh_history.bak,hm,none,file,term,Terminal,,zshrc,FALSE
 .zshrc_themes_omp,.zshrc_themes_omp,rp>hm,file,file_sym,term,Terminal,,zshrc,FALSE
 .zshrc_autocomplete1,.zshrc_autocomplete1,rp>hm,file,file_sym,term,Terminal,,zshrc,FALSE
 .zprofile,.zprofile,rp>hm,file,file_sym,term,Terminal,zsh profile file,zsh other,FALSE
-.zsh_sessions,.zsh_sessions,rp>hm,folder,folder_sym,term,Terminal,Command history and state from previous zsh sessions,zsh other,FALSE
+.zsh_sessions,.zsh_sessions,hm,none,folder,term,Terminal,Command history and state from previous zsh sessions,zsh other,FALSE
 .zcompdump-srb_mbp23-5.9,.zcompdump-srb_mbp23-5.9,hm,none,file,term,Terminal,zsh completion dump file,zsh other,FALSE
 .zcompdump-srb_mbp23-5.9.zwc,.zcompdump-srb_mbp23-5.9.zwc,hm,none,file,term,Terminal,,zsh other,FALSE
 .zcompdump,.zcompdump,hm,none,file,term,Terminal,,zsh other,FALSE
 .oh-my-posh,.oh-my-posh,rp>hm,folder,folder_sym,term,Terminal,,zsh themes,FALSE
 .bashrc,.bashrc,rp>hm,file,file_sym,term,Terminal,,bash,FALSE
-.bash_history,.bash_history,rp>hm,file,file_sym,term,Terminal,,bash,FALSE
-.bash_sessions,.bash_sessions,rp>hm,folder,folder_sym,term,Terminal,Command history and state from previous bash sessions,bash,FALSE
-.sh_history,.sh_history,rp>hm,file,file_sym,term,Terminal,Shell history file,bash,FALSE
+.bash_history,.bash_history,hm,none,file,term,Terminal,,bash,FALSE
+.bash_sessions,.bash_sessions,hm,none,folder,term,Terminal,Command history and state from previous bash sessions,bash,FALSE
+.sh_history,.sh_history,hm,none,file,term,Terminal,Shell history file,bash,FALSE
 .iterm2_shell_integration.zsh,.iterm2_shell_integration.zsh,rp>hm,file,file_sym,term,Terminal,iTerm2 shell integration file,other,FALSE
 .iterm2,.iterm2,rp>hm,folder,folder_sym,term,Terminal,iTerm2 configuration files,other,FALSE
 .viminfo,.viminfo,hm,none,file,term,Terminal,,other,FALSE
@@ -27,7 +27,7 @@ none,.zsh_history.bak,hm,none,file,term,Terminal,,zshrc,FALSE
 .nvm,.nvm,rp>hm,folder,folder_sym,swd,Software Development,Node.js version manager,pkg mgrs plus,FALSE
 .yarnrc,.yarnrc,rp>hm,file,file_sym,swd,Software Development,Yarn package manager,pkg mgrs plus,FALSE
 .node-gyp,.node-gyp,rp>hm,folder,folder_sym,swd,Software Development,Node.js native addon build tool,pkg mgrs plus,FALSE
-.docker,.docker,rp>hm,folder,folder_sym,swd,Software Development,Docker containerization platform,pkg mgrs plus,FALSE
+.docker,.docker,hm,none,folder,swd,Software Development,Docker Desktop state (local-only; do not track),pkg mgrs plus,FALSE
 .gem,.gem,rp>hm,folder,folder_sym,swd,Software Development,Ruby Gems (Ruby libraries and packages),pkg mgrs plus,FALSE
 .vuerc,.vuerc,rp>hm,file,file_sym,swd,Software Development,Vue.js configuration file,frameworks,FALSE
 .vue-cli-ui,.vue-cli-ui,rp>hm,folder,folder_sym,swd,Software Development,Vue.js CLI User Interface config,frameworks,FALSE
@@ -57,7 +57,7 @@ none,.zsh_history.bak,hm,none,file,term,Terminal,,zshrc,FALSE
 .gitignore_global,.gitignore_global,rp>hm,file,file_sym,swd,Software Development,Global .gitignore file,vcs git,FALSE
 .gitignore,.gitignore,rp,file,none,swd,Software Development,Repo .gitignore file,vcs git,FALSE
 .git,.git,rp,folder,none,swd,Software Development,Repo .git folder,vcs git,FALSE
-.gitflow_export,.gitflow_export,rp>hm,file,file_sym,swd,Software Development,GitFlow configuration file,vcs git,FALSE
+.gitflow_export,.gitflow_export,rp>hm,file,file_sym,swd,Software Development,GitFlow/Sourcetree getopt path (may be overwritten; re-run Dotbot),vcs git,FALSE
 .gitconfig,.gitconfig,rp>hm,file,file_sym,swd,Software Development,Git configuration file,vcs git,FALSE
 .hgignore_global,.hgignore_global,rp>hm,file,file_sym,swd,Software Development,Global .hgignore file,vcs other,FALSE
 .subversion,.subversion,rp>hm,folder,folder_sym,swd,Software Development,Subversion configuration files,vcs other,FALSE
@@ -70,7 +70,7 @@ none,.zsh_history.bak,hm,none,file,term,Terminal,,zshrc,FALSE
 .CFUserTextEncoding,.CFUserTextEncoding,rp>hm,file,file_sym,sys,System,macOS - stores the user’s preferred text encoding settings,macos,FALSE
 .netrc,.netrc,rp>hm,file,file_sym,sys,System,Unix file stores login & init info for connecting to remote systems,unix,FALSE
 .thumbnails,.thumbnails,rp>hm,folder,folder_sym,sys,System,Thumbnail cache,unix,FALSE
-.ssh,.ssh,rp>hm,folder,folder_sym,sys,System,Unix SSH configuration files,unix,FALSE
+.ssh,.ssh,hm,none,folder,sys,System,SSH keys/config local-only (do not track),unix,FALSE
 .fontconfig,.fontconfig,rp>hm,folder,folder_sym,sys,System,Unix font configuration,unix,FALSE
 .lesshst,.lesshst,hm,none,file,sys,System,command history file for the Unix less text viewer command,unix,FALSE
 .cups,.cups,rp>hm,folder,folder_sym,sys,System,Common Unix Printing System,unix,FALSE
