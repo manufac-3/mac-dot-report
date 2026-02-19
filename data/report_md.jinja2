@@ -2,18 +2,17 @@
 
 
 
-{% set unmanaged_items = [] %}
 {% set managed_items = [] %}
 {% for item in csv_data %}
-  {% if item.cat_1_name_cf is none or item.cat_1_name_cf == 'None' %}
-    {% set _ = unmanaged_items.append(item) %}
-  {% else %}
+  {% if item.cat_1_name_cf is not none and item.cat_1_name_cf != 'None' %}
     {% set _ = managed_items.append(item) %}
   {% endif %}
 {% endfor %}
 
-{% if unmanaged_items %}
-*♦️ New unmanaged item{{ unmanaged_items|length > 1 and 's' or '' }} in $HOME*
+{% if fs_not_in_di and fs_not_in_di|length > 0 %}
+*♦️ New unmanaged item{{ fs_not_in_di|length > 1 and 's' or '' }} in $HOME ({{ fs_not_in_di|length }})*
+{% else %}
+*✅ No new unmanaged items in $HOME.*
 {% endif %}
 
 {% for item in managed_items %}
@@ -26,17 +25,33 @@
 #### {{ item.cat_1_cf }}: {{ item.cat_2_cf }}
 {% endif %}
 
-{% set scope_val = item.repo_scope_cf %}
-{% if scope_val is none or scope_val == 'None' or scope_val == 'nan' or scope_val == '' %}
-  {% if item.dot_struc == 'hm' %}
-    {% set scope_val = 'local' %}
-  {% elif item.dot_struc == 'rp' or item.dot_struc == 'rp>hm' %}
-    {% set scope_val = 'public' %}
+{% set state_val = item.dot_state %}
+{% if state_val is none or state_val == 'None' or state_val == 'nan' or state_val == '' %}
+  {% if item.dot_struc == 'hm' or item.dot_struc_cf == 'hm' %}
+    {% set state_val = 'NoSym' %}
+  {% elif item.repo_scope_cf == 'private' %}
+    {% set state_val = 'Local' %}
   {% else %}
-    {% set scope_val = 'local' %}
+    {% set state_val = 'Synced' %}
   {% endif %}
 {% endif %}
-- {% if item.item_type == 'folder' %}**{{ item.item_name }} [{{ scope_val }}]{% if item.comment_cf %} | {{ item.comment_cf.strip() }}{% endif %} (ƒ)**{% else %}{{ item.item_name }} [{{ scope_val }}]{% if item.comment_cf %} | {{ item.comment_cf.strip() }}{% endif %}{% endif %}
+{% set state_suffix = '' %}
+{% if state_val == 'NoSym' %}
+  {% set state_suffix = ' [NoSym]' %}
+{% endif %}
+{% if item.item_type == 'folder' %}
+  {% if state_val == 'NoSym' %}
+- **_{{ item.item_name }}{{ state_suffix }}{% if item.comment_cf %} | {{ item.comment_cf.strip() }}{% endif %} (ƒ)_**
+  {% else %}
+- **{{ item.item_name }}{{ state_suffix }}{% if item.comment_cf %} | {{ item.comment_cf.strip() }}{% endif %} (ƒ)**
+  {% endif %}
+{% else %}
+  {% if state_val == 'NoSym' %}
+- _{{ item.item_name }}{{ state_suffix }}{% if item.comment_cf %} | {{ item.comment_cf.strip() }}{% endif %}_
+  {% else %}
+- {{ item.item_name }}{{ state_suffix }}{% if item.comment_cf %} | {{ item.comment_cf.strip() }}{% endif %}
+  {% endif %}
+{% endif %}
 {% endfor %}
 
 ---

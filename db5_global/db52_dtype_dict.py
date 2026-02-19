@@ -45,6 +45,7 @@ f_types_vals = {
     'repo_scope_rp': {'dtype': 'string', 'default': np.nan},
     'repo_scope_db': {'dtype': 'string', 'default': np.nan},
     'repo_scope_cf': {'dtype': 'string', 'default': np.nan},
+    'dot_state': {'dtype': 'string', 'default': np.nan},
 
     # Other Fields
     'git_rp': {'dtype': 'bool', 'default': np.nan},
@@ -57,6 +58,7 @@ f_types_vals = {
     'no_show_cf': {'dtype': 'bool', 'default': np.nan},
     'sort_orig': {'dtype': 'Int64', 'default': 0},
     'sort_out': {'dtype': 'Int64', 'default': -1},
+    'nosym_sort': {'dtype': 'Int64', 'default': 0},
 
     # Status Fields
     'st_alert': {'dtype': 'string', 'default': np.nan},

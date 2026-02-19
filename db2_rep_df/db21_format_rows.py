@@ -66,10 +66,25 @@ def filter_report_df(df, hide_no_shows, hide_full_matches, hide_full_and_only, s
     return df
 
 def sort_report_df(df):
+    # Keep subgroup ordering based on CSV sequence, then push NoSym items
+    # to the bottom within each subgroup while preserving CSV order.
+    df.loc[:, 'cat_1_key'] = df['cat_1_cf'].astype('string').fillna('__uncat_1__')
+    df.loc[:, 'cat_2_key'] = df['cat_2_cf'].astype('string').fillna('__uncat_2__')
+    df.loc[:, 'group_sort_key'] = (
+        df.groupby(['cat_1_key', 'cat_2_key'], dropna=False)['sort_orig']
+        .transform('min')
+        .astype('Int64')
+    )
+
     df.loc[:, 'secondary_sort_key'] = df['git_rp'].apply(lambda x: 1 if x == False else 0)
-    df.loc[:, 'tertiary_sort_key'] = df['sort_orig']
-    df = df.sort_values(by=['sort_out', 'secondary_sort_key', 'tertiary_sort_key'], ascending=[True, True, True])
-    df = df.drop(columns=['secondary_sort_key', 'tertiary_sort_key'])
+    if 'nosym_sort' not in df.columns:
+        df.loc[:, 'nosym_sort'] = 0
+
+    df = df.sort_values(
+        by=['group_sort_key', 'nosym_sort', 'secondary_sort_key', 'sort_orig'],
+        ascending=[True, True, True, True]
+    )
+    df = df.drop(columns=['cat_1_key', 'cat_2_key', 'group_sort_key', 'secondary_sort_key'])
     return df
 
 def sort_filter_report_df(df, hide_no_shows, hide_full_matches, hide_full_and_only, show_mstat_f, show_mstat_t):
