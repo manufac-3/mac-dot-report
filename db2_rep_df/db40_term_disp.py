@@ -130,6 +130,7 @@ def reorder_dfr_cols_for_cli(report_dataframe, show_all_fields, show_main_fields
     return report_dataframe
 
 def print_dataframe_section(df, columns, title):
+    columns = [col for col in columns if col in df.columns]
     print(f"{title}:")
     print(df[columns])
     print("\n" * 2)

@@ -58,10 +58,6 @@ def build_report_dataframe(main_df_dict, verbose=False):
 def add_report_fields(report_dataframe):
     df = report_dataframe
     new_columns = { # Define the new columns to add
-        'item_name_repo': f_types_vals['item_name_repo'],
-        'item_type_repo': f_types_vals['item_type_repo'],
-        'item_name_home': f_types_vals['item_name_home'],
-        'item_type_home': f_types_vals['item_type_home'],
         'sort_out': f_types_vals['sort_out'],
         'st_docs': f_types_vals['st_docs'],
         'st_alert': f_types_vals['st_alert'],

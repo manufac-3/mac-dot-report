@@ -79,6 +79,7 @@ CSV behavior:
 
 - Includes operational/report fields in addition to config fields.
 - Includes derived fields such as `dot_state` and `nosym_sort` for report presentation logic.
+- Uses source-side filesystem fields (`item_name_rp`, `item_type_rp`, `item_name_hm`, `item_type_hm`) as the canonical repo/home representations in output.
 
 ## Running
 From repo root:
