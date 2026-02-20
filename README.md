@@ -50,6 +50,13 @@ Test fixture fields (`data/test_fixtures.csv`):
 - `suppress_alert`
 - `expected_state`, `notes`
 
+Fixture visibility behavior:
+
+- Enabled fixture items are hidden from user-facing report output by default.
+- This includes managed list rows, unmatched sections, and fixture inventory section.
+- To temporarily show fixture inventory in markdown while debugging, run with:
+  - `DOTREP_SHOW_TEST_FIXTURES=1 python main.py`
+
 ## Output Files
 Output directory:
 
@@ -66,7 +73,7 @@ Markdown behavior:
 - Top line reports unmanaged home-item status explicitly.
 - Grouping follows configured categories.
 - `NoSym` items are visually distinguished and placed below symlinked items within each subgroup.
-- Includes a `Test Fixtures` section so fixture intent and suppression flags stay visible.
+- `Test Fixtures` section is shown only when fixture display is explicitly enabled.
 
 CSV behavior:
 

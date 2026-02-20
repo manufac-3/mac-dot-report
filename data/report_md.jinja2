@@ -93,12 +93,10 @@
 
 ---
 
+{% if test_fixtures and test_fixtures|length > 0 %}
 ### Test Fixtures
 
-{% if test_fixtures and test_fixtures|length > 0 %}
 {% for fx in test_fixtures %}
 - `{{ fx.item_name }}` | scope: `{{ fx.scope }}` | type: `{{ fx.fixture_type }}` | enabled: `{{ fx.enabled }}` | suppress_unmatched: `{{ fx.suppress_unmatched }}` | suppress_alert: `{{ fx.suppress_alert }}`{% if fx.expected_state %} | expected: `{{ fx.expected_state }}`{% endif %}{% if fx.notes %} | {{ fx.notes }}{% endif %}{{ '\n' }}
 {% endfor %}
-{% else %}
-- (none)
 {% endif %}

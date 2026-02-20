@@ -1,3 +1,4 @@
+import os
 import pandas as pd
 
 from .db11_make_main_df import build_main_dataframe
@@ -10,6 +11,9 @@ pd.set_option('display.max_columns', 10)  # Limit columns instead of None
 pd.set_option('display.width', 120)  # Reasonable width instead of None
 pd.set_option('display.max_colwidth', 30)
 
+SHOW_FIXTURES_ENV = "DOTREP_SHOW_TEST_FIXTURES"
+TRUE_VALUES = {'1', 'true', 't', 'yes', 'y', 'on'}
+
 def build_full_output_dict(verbose=False):
     output_df_dict = {}
 
@@ -20,6 +24,9 @@ def build_full_output_dict(verbose=False):
     home_df = load_hm_dataframe()
     config_df = load_cf_dataframe()
     fixtures_df = load_fx_dataframe()
+    show_fixtures = should_show_fixtures_in_report()
+    hide_enabled_fixtures = not show_fixtures
+    enabled_fixture_names = get_enabled_fixture_names(fixtures_df)
     fixture_flags = build_fixture_flags_by_item(fixtures_df)
 
     full_main_dataframe = build_main_dataframe(verbose=verbose)
@@ -27,17 +34,30 @@ def build_full_output_dict(verbose=False):
     # print("\n FROM DB00: Full Main DataFrame:\n", full_main_dataframe)
 
     report_dataframe = build_report_dataframe(output_df_dict, verbose=verbose)
-    report_dataframe = apply_fixture_alert_suppression(report_dataframe, fixture_flags)
+    if hide_enabled_fixtures:
+        report_dataframe = suppress_fixture_rows(report_dataframe, enabled_fixture_names)
+    else:
+        report_dataframe = apply_fixture_alert_suppression(report_dataframe, fixture_flags)
     output_df_dict['report_dataframe'] = report_dataframe
     # print("\n FROM DB00: Report DataFrame:\n", report_dataframe)
 
     # Create unmatched items lists
-    fs_not_in_di, di_not_in_fs = find_unmatched_items(home_df, config_df, fixture_flags)
+    fs_not_in_di, di_not_in_fs = find_unmatched_items(
+        home_df,
+        config_df,
+        fixture_flags,
+        enabled_fixture_names,
+        hide_enabled_fixtures,
+    )
     output_df_dict['fs_not_in_di'] = fs_not_in_di
     output_df_dict['di_not_in_fs'] = di_not_in_fs
-    output_df_dict['test_fixtures'] = fixtures_for_markdown(fixtures_df)
+    output_df_dict['test_fixtures'] = fixtures_for_markdown(fixtures_df) if show_fixtures else []
 
     return output_df_dict
+
+
+def should_show_fixtures_in_report():
+    return str(os.getenv(SHOW_FIXTURES_ENV, "")).strip().lower() in TRUE_VALUES
 
 
 def normalize_bool(value):
@@ -45,7 +65,24 @@ def normalize_bool(value):
         return False
     if isinstance(value, bool):
         return value
-    return str(value).strip().lower() in {'1', 'true', 't', 'yes', 'y', 'on'}
+    return str(value).strip().lower() in TRUE_VALUES
+
+
+def get_enabled_fixture_names(fixtures_df):
+    names = set()
+    if fixtures_df is None or fixtures_df.empty:
+        return names
+
+    for _, row in fixtures_df.iterrows():
+        if not normalize_bool(row.get('enabled')):
+            continue
+        item_name = row.get('item_name')
+        if pd.isna(item_name):
+            continue
+        item_name = str(item_name).strip()
+        if item_name:
+            names.add(item_name)
+    return names
 
 
 def build_fixture_flags_by_item(fixtures_df):
@@ -96,6 +133,12 @@ def apply_fixture_alert_suppression(report_df, fixture_flags):
     return report_df
 
 
+def suppress_fixture_rows(report_df, enabled_fixture_names):
+    if report_df is None or report_df.empty or not enabled_fixture_names:
+        return report_df
+    return report_df.loc[~report_df['item_name'].isin(enabled_fixture_names)].copy()
+
+
 def fixtures_for_markdown(fixtures_df):
     if fixtures_df is None or fixtures_df.empty:
         return []
@@ -116,7 +159,13 @@ def fixtures_for_markdown(fixtures_df):
     return rows
 
 
-def find_unmatched_items(home_df, config_df, fixture_flags=None):
+def find_unmatched_items(
+    home_df,
+    config_df,
+    fixture_flags=None,
+    enabled_fixture_names=None,
+    hide_enabled_fixtures=False,
+):
     """
     Find unmatched items between home folder and config template.
 
@@ -142,6 +191,8 @@ def find_unmatched_items(home_df, config_df, fixture_flags=None):
     # Create structured data for template
     fs_not_in_di = []
     for item_name in sorted(fs_not_in_di_names):
+        if hide_enabled_fixtures and enabled_fixture_names and item_name in enabled_fixture_names:
+            continue
         if fixture_flags and fixture_flags.get(item_name, {}).get('suppress_unmatched', False):
             continue
 
@@ -155,6 +206,8 @@ def find_unmatched_items(home_df, config_df, fixture_flags=None):
 
     di_not_in_fs = []
     for item_name in sorted(di_not_in_fs_names):
+        if hide_enabled_fixtures and enabled_fixture_names and item_name in enabled_fixture_names:
+            continue
         if fixture_flags and fixture_flags.get(item_name, {}).get('suppress_unmatched', False):
             continue
 
