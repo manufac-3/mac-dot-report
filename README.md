@@ -1,77 +1,90 @@
 # mac-dot-report
 
-#### Overview
+## Overview
+`mac-dot-report` generates a categorized inventory of root-level dot items in `$HOME` and compares four sources of truth:
 
-mac-dot-report is a Python-based tool to help users manage and document the dot files and dot folders in their home directory. Upon execution, the script generates a fresh list of all dot items located at the root level of your home folder, grouping the items by user-specified categories and by providing user-specified comments. This additional metadata is stored in `data/dot-info.csv`.
+1. Repo scan (`rp`): dot items in dotfiles repositories.
+2. Home scan (`hm`): dot items currently present in `$HOME`.
+3. Dotbot YAML (`db`): expected symlink mappings from `install.conf.yaml`.
+4. Config CSV (`cf`): user-maintained metadata and ordering in `data/dotrep_config.csv`.
 
-#### Features
+The output is a timestamped markdown report plus a timestamped CSV report.
 
-- **Tracking of Dot Item State**: Each time the script is run, it generates an updated list of all dot files and dot folders at the root level of your home directory and saves it to your specified directory.
-- **Categorization**: In `dot-info.csv`, assign categories to your dot items to display them as a group in each report.
-- **Commenting**: Also in `dot-info.csv`, insert comments so future-you will know the purpose of cryptic dot items:
-  - `.CFUserTextEncoding | macOS - stores the user’s preferred text encoding settings`
-- **Comprehensive Reports**: The tool generates categorized markdown reports and a CSV output of the entire database, which is useful when updating the dot_info.
-- **Symlink support**: If you're managing your dot items by storing them elsewhere and creating symlinks in $HOME (using DotBot, Chez Moi, Stow, etc.), the symlinks will also be tracked as if they are regular items. Note: I did nothing to enable this. The Python `os` library defaults to seeing symlinks as their source items.
+## Current Model
+This project currently supports a two-repo dotfiles model:
 
-#### Usage
+- Public repo scope: `~/._dotfiles/dotfiles_srb_repo`
+- Private repo scope: `~/._dotfiles/dotfiles_srb_repo_private`
 
-1. Generating reports: Run the script to generate both the markdown report and the full csv output of the database into the folder specified in main.py as: YYMMDD-HHMMSS_dot_inventory.md and YYMMDD-HHMMSS_dot_inventory.csv.
+At runtime, scope is represented as:
 
-2. Updating dot_info: Use the collected "unmatched" items in the report to manually edit the dot_info csv to that the new items automatically sort to your chosen category.
-   - Any new or missing (from the dot_info) items in $HOME can be ignored and they will continue to accumulate in their respective categories in the report.
-   - Periodically, as part of regular maintenance, the user can run a report, review the accumulated items, and update the dot_info CSV file to include categories for better organization. If the user is unsure of an item's purpose, they can research it and add a comment to the dot_info for future reference.
-   - When new items are included in the dot_info, they will display in their correct categories and no longer display in the Unmatched section.
+- `public`
+- `private`
+- `local`
 
-#### dot_info Overview
+If the same dot item name exists in both repos, report generation fails with an explicit collision error.
 
-The dot_info in this project provides structure and clarity to the otherwise cluttered and cryptic list of dot files and dot folders in a user's home directory. It serves several key purposes:
+## Config File
+Primary config file:
 
-- **Categorization**: Each item is assigned to categories that help organize and group related files.
-- **Comments**: Descriptive comments are added to explain the purpose or significance of specific files.
-- **Sorting**: Metadata like category and order help sort items in a clear way in the final report.
+- `data/dotrep_config.csv`
 
-The dot_info includes fields that allow the user to associate information and comments to the dot items:
+The row order in `data/dotrep_config.csv` is intentional and remains the baseline ordering signal.
 
-- **item_name**: Name of the dot item.
-- **item_type**: File or folder.
-- **di_cat_1**: The primary category.
-- **di_cat_1_name**: The name of the primary category.
-- **di_comment**: Additional comments or notes.
-- **di_cat_2**: The secondary category.
-- **no_show**: A flag indicating whether to hide the item in the report.
+Key fields:
 
----
+- `item_name_rp_cf`, `item_name_hm_cf`
+- `dot_struc_cf`
+- `item_type_rp_cf`, `item_type_hm_cf`
+- `cat_1_cf`, `cat_1_name_cf`, `cat_2_cf`
+- `comment_cf`
+- `repo_scope_cf`
+- `no_show_cf`
 
-### Roadmap
+## Output Files
+Output directory:
 
-- **Category Indexing**:
+- Uses `$SRB_REPORTS_DIR` if set.
+- Falls back to `./_output`.
 
-  - Implement an index at the top of the report summarizing the count of dot files and dot folders under each Category 1 and Category 2. This will provide a quick overview of which categories contribute the most items to the home folder.
-    - **Index formatting**:
-      - (index line) `term, zsh: 4 files, 1 folder`
+Generated files:
 
-- **Run-anywhere**:
+- `YYMMDD-HHMMSS_mac-dot-report.md`
+- `YYMMDD-HHMMSS_mac-dot-report.csv`
 
-  - Explore options like Zsh alias, Keyboard Maestro macro, Hazel rule, or Automator action to make the script executable from any directory or context.
+Markdown behavior:
 
-- **add/clean up debug lines**:
+- Top line reports unmanaged home-item status explicitly.
+- Grouping follows configured categories.
+- `NoSym` items are visually distinguished and placed below symlinked items within each subgroup.
 
-  - tbd
+CSV behavior:
 
-- **Replace blanks in report.csv**:
-  - Replace blanks in report.csv with contextual placeholders or flags, such as `[NO ITEM TYPE]` or `[NO ITEM NAME]`.
+- Includes operational/report fields in addition to config fields.
+- Includes derived fields such as `dot_state` and `nosym_sort` for report presentation logic.
 
----
+## Running
+From repo root:
 
-|                      | **fs_item_name** | **fs*item_type*** | **di_item_name** | **di_item_type** | **item_name**    | **item_type**  |
-| -------------------- | ---------------- | ----------------- | ---------------- | ---------------- | ---------------- | -------------- |
-| **Scenario 1 IN**    | .zshrc           | TRUE              | NaN              | NaN              |                  |                |
-| **Scenario 1 NAMES** | .zshrc           | TRUE              | [NO di ITEM]     | [NO di ITEM]     | .zshrc           | TRUE           |
-|                      |                  |                   |                  |                  |                  |                |
-| **Scenario 2 IN**    | NaN              | NaN               | .zshrc           | TRUE             |                  |                |
-| **Scenario 2 NAMES** | [NO FS ITEM]     | [NO FS ITEM]      | .zshrc           | TRUE             | .zshrc           | TRUE           |
-|                      |                  |                   |                  |                  |                  |                |
-| **Scenario 3 IN**    | NaN              | NaN               | .zshrc           | NaN              |                  |                |
-| **Scenario 3 NAMES** | [NO FS ITEM]     | [NO FS ITEM]      | .zshrc [NO TYPE] | [NO ITEM DATA]   | .zshrc [NO TYPE] | [NO ITEM DATA] |
+```bash
+python main.py
+```
 
-- Maybe use rcm somehow...https://thoughtbot.github.io/rcm/rcm.7.html
+If using the project virtual environment:
+
+```bash
+.venv/bin/python main.py
+```
+
+## Maintenance Workflow
+Recommended loop:
+
+1. Run report.
+2. Review unmanaged/unmatched sections.
+3. Update `data/dotrep_config.csv` for newly accepted items.
+4. Re-run report to confirm grouping and comments.
+
+## Scope and Limits
+- Scans only root-level dot items in `$HOME`.
+- Does not recurse nested dot items for inventory classification.
+- Assumes Dotbot-style symlink management for YAML-derived comparisons.

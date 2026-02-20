@@ -1,91 +1,68 @@
 # mac-dot-report AI Assistant Instructions
 
-## Project Overview
-This is a Python data processing pipeline that generates categorized reports about macOS dotfiles and folders in a user's home directory. It scans `~/.`, merges with configuration data, and produces timestamped markdown/CSV reports.
+## Project Purpose
+This project builds a report about root-level dot items in `$HOME` by combining:
 
-## Architecture & Data Flow
-- **Entry Point**: `main.py` → `build_full_output_dict()` → `save_outputs()`
-- **Core Pipeline**: Load data sources → Merge into main dataframe → Build report dataframe → Generate outputs
-- **Key Modules**:
-  - `db0_load/`: Data ingestion (home dir, config CSV, repo files, dotbot YAML)
-  - `db1_main_df/`: Dataframe merging and consolidation
-  - `db2_rep_df/`: Report formatting and filtering
-  - `db5_global/`: Shared utilities and type definitions
+- filesystem home scan (`hm`)
+- dotfiles repo scan (`rp`)
+- Dotbot YAML mapping scan (`db`)
+- user config scan (`cf`)
 
-## Critical Patterns & Conventions
+Output is markdown + CSV with timestamped filenames.
 
-### Data Types & Validation
-- Use explicit pandas dtypes from `db5_global/db52_dtype_dict.py`
-- String fields: `'string'` dtype (nullable)
-- Integer IDs: `'Int64'` dtype (nullable)
-- Boolean flags: `'bool'` dtype
-- Always handle NaN values explicitly with `.fillna()`
+## Architecture
+Entry path:
 
-### DataFrame Merging
-```python
-# Example pattern from db13_merge.py
-main_df = pd.merge(main_df, other_df, 
-                   left_on='item_name_rp', 
-                   right_on='item_name_hm',
-                   how='outer',
-                   suffixes=('_rp', '_hm'))
-```
+- `main.py` -> `build_full_output_dict()` -> `save_outputs()`
 
-### Output Generation
-- Reports saved to hardcoded iCloud paths (modify `report_gen.py` USER_PATH_* variables)
-- Timestamped filenames: `YYMMDD-HHMMSS_mac-dot-report.{md,csv}`
-- Jinja2 templating in `data/report_md.jinja2`
-- Folders denoted with `**bold**` and `(ƒ)` in markdown
+Core packages:
 
-### Configuration Management
-- `data/dotrep_config.csv`: Primary config with columns:
-  - `item_name_rp_cf`/`item_name_hm_cf`: Repo/home item names
-  - `cat_1_cf`/`cat_1_name_cf`: Primary categorization
-  - `cat_2_cf`: Secondary categorization
-  - `comment_cf`: Descriptive comments
-  - `no_show_cf`: Hide from reports
+- `db0_load/`: loaders for repo/home/yaml/config
+- `db1_main_df/`: merge + consolidated main dataframe
+- `db2_rep_df/`: report fields, matching, sorting, final display dataframe
+- `db5_global/`: dtype dictionary and shared helpers
+- `data/report_md.jinja2`: markdown template
 
-## Developer Workflows
+## Current Dotfiles Model Assumptions
+Repo loader currently expects:
 
-### Running the Project
+- public repo: `~/._dotfiles/dotfiles_srb_repo`
+- private repo: `~/._dotfiles/dotfiles_srb_repo_private`
+
+Note:
+
+- Dot item name collisions across public/private repos are treated as errors.
+
+## Dtype and Null Rules
+- Keep all dataframe dtypes aligned with `db5_global/db52_dtype_dict.py`.
+- Use pandas nullable types where defined (`string`, `Int64`, etc.).
+- Handle missing values explicitly (`fillna`) before comparisons/sorting.
+
+## Sorting and Presentation Rules
+- Baseline ordering comes from config row order (`sort_orig` from `data/dotrep_config.csv`).
+- Report-level sorting can add presentation keys (for example `nosym_sort`) but should preserve user-configured order within buckets.
+- Markdown rendering must prioritize readability over exhaustive inline metadata.
+
+## Output Paths
+- Output directory is controlled by `SRB_REPORTS_DIR` with fallback to `./_output` (see `report_gen.py`).
+- Do not reintroduce hardcoded absolute output paths.
+
+## Editing Guidance
+- Prefer focused changes in the smallest relevant module.
+- When changing report semantics, update `README.md` accordingly.
+- For behavioral changes, run `python main.py` and validate:
+  - generated markdown
+  - generated report CSV
+  - unmatched sections
+  - expected state/sort behavior
+
+## Typical Local Run
 ```bash
-# Install dependencies
-pip install -r requirements.txt
-
-# Run locally
 python main.py
-
-# Or install as package and use console script
-pip install -e .
-dotreport
 ```
 
-### Adding New Dotfile Categories
-1. Edit `data/dotrep_config.csv`
-2. Add row with appropriate `cat_1_cf`, `cat_1_name_cf`, `cat_2_cf`
-3. Set `item_name_hm_cf` for home directory items
-4. Run report to see new categorization
+Or:
 
-### Debugging Data Issues
-- Enable debug prints in loaders: Set `show_output = True` in `db0_load/db*.py`
-- Check merge results: Uncomment prints in `db1_main_df/db13_merge.py`
-- Validate dtypes: Use `df.dtypes` and compare with `f_types_vals`
-
-### Testing Data Changes
-- No automated tests currently - validate manually by running reports
-- Check "Unmatched Items" sections in output for new/removed dotfiles
-- Verify categorization in generated markdown
-
-## Key Files to Reference
-- `data/dotrep_config.csv`: Configuration schema and examples
-- `data/report_md.jinja2`: Report template structure
-- `db5_global/db52_dtype_dict.py`: All pandas dtypes used
-- `db1_main_df/db13_merge.py`: Complex merge logic patterns
-- `report_gen.py`: Output path configuration
-
-## Common Gotchas
-- Output paths hardcoded to iCloud - modify for local development
-- Pandas nullable dtypes (`Int64`, `string`) require explicit NaN handling
-- Merge suffixes (`_rp`, `_hm`, `_cf`) used throughout for column disambiguation
-- Symlinks treated as regular files by `os` library (intended behavior)</content>
-<parameter name="filePath">/Users/stevenbrown/swd_storage/VCS_loc_gh/gh_loc_5_tech/macos_scripts_pub/macOS_util_py_rep_mac-dot-report/.github/copilot-instructions.md
+```bash
+.venv/bin/python main.py
+```
