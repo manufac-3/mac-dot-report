@@ -33,7 +33,7 @@ def generate_timestamped_output_paths(base_name):
     return csv_output_path, full_csv_output_path, markdown_output_path
 
 # CONVERT DATAFRAMES TO OUTPUT FORMATS
-def export_to_markdown(output_file, df=None, fs_not_in_di=None, di_not_in_fs=None):
+def export_to_markdown(output_file, df=None, fs_not_in_di=None, di_not_in_fs=None, test_fixtures=None):
     try:
         if df is None:
             raise ValueError("DataFrame 'df' must be provided")
@@ -49,7 +49,8 @@ def export_to_markdown(output_file, df=None, fs_not_in_di=None, di_not_in_fs=Non
         rendered_markdown = template.render(
             csv_data=df.to_dict(orient='records'),
             fs_not_in_di=fs_not_in_di if fs_not_in_di else [],
-            di_not_in_fs=di_not_in_fs if di_not_in_fs else []
+            di_not_in_fs=di_not_in_fs if di_not_in_fs else [],
+            test_fixtures=test_fixtures if test_fixtures else [],
         )
 
         with open(output_file, 'w') as file:
@@ -85,7 +86,8 @@ def save_markdown(main_df_dict, markdown_output_path):
         output_file=markdown_output_path,
         df=main_df_dict['report_dataframe'],
         fs_not_in_di=main_df_dict.get('fs_not_in_di', []),
-        di_not_in_fs=main_df_dict.get('di_not_in_fs', [])
+        di_not_in_fs=main_df_dict.get('di_not_in_fs', []),
+        test_fixtures=main_df_dict.get('test_fixtures', []),
     )
 
 def save_report_csv(main_df_dict, csv_output_path):

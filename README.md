@@ -28,6 +28,7 @@ If the same dot item name exists in both repos, report generation fails with an 
 Primary config file:
 
 - `data/dotrep_config.csv`
+- `data/test_fixtures.csv` (intentional test artifacts + suppression toggles)
 
 The row order in `data/dotrep_config.csv` is intentional and remains the baseline ordering signal.
 
@@ -40,6 +41,14 @@ Key fields:
 - `comment_cf`
 - `repo_scope_cf`
 - `no_show_cf`
+
+Test fixture fields (`data/test_fixtures.csv`):
+
+- `fixture_id`, `item_name`, `scope`, `fixture_type`
+- `enabled`
+- `suppress_unmatched`
+- `suppress_alert`
+- `expected_state`, `notes`
 
 ## Output Files
 Output directory:
@@ -57,6 +66,7 @@ Markdown behavior:
 - Top line reports unmanaged home-item status explicitly.
 - Grouping follows configured categories.
 - `NoSym` items are visually distinguished and placed below symlinked items within each subgroup.
+- Includes a `Test Fixtures` section so fixture intent and suppression flags stay visible.
 
 CSV behavior:
 
@@ -82,7 +92,8 @@ Recommended loop:
 1. Run report.
 2. Review unmanaged/unmatched sections.
 3. Update `data/dotrep_config.csv` for newly accepted items.
-4. Re-run report to confirm grouping and comments.
+4. Update `data/test_fixtures.csv` for intentional test artifacts and suppression policy.
+5. Re-run report to confirm grouping, comments, and fixture behavior.
 
 ## Scope and Limits
 - Scans only root-level dot items in `$HOME`.

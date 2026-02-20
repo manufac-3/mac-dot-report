@@ -11,6 +11,7 @@ from db0_load.db03_load_cf import (
     correct_and_validate_user_config_df,
     load_cf_dataframe
 )
+from db0_load.db04_load_fx import load_fx_dataframe
 
 from .db05_get_filetype import (
     determine_item_type,
@@ -30,7 +31,8 @@ __all__ = [
     "load_hm_dataframe",
     "load_dotbot_yaml_dataframe",
     "correct_and_validate_user_config_df",
-    "load_cf_dataframe"
+    "load_cf_dataframe",
+    "load_fx_dataframe",
 
     "determine_item_type",
     "is_symlink",

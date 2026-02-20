@@ -1,0 +1,7 @@
+fixture_id,item_name,scope,fixture_type,enabled,suppress_unmatched,suppress_alert,expected_state,notes
+fx_001,.__TEST_ITEM,home,test_item,TRUE,TRUE,TRUE,NoSym,Intentional home test fixture.
+fx_002,.oh-my-zsh_IMPORT,home,broken_link,TRUE,FALSE,FALSE,Synced,Intentional broken-link fixture; keep visible.
+fx_003,.test_file_name_in_dot_info,yaml,test_item,FALSE,FALSE,FALSE,,Commented Dotbot YAML test mapping.
+fx_004,.test_folder,yaml,test_item,FALSE,FALSE,FALSE,,Commented Dotbot YAML test mapping.
+fx_005,.omniboardTEST,yaml,false_mapping,FALSE,FALSE,FALSE,,Commented Dotbot YAML false-reference test mapping.
+fx_006,.dropboxTEST,yaml,false_mapping,FALSE,FALSE,FALSE,,Commented Dotbot YAML false-reference test mapping.
