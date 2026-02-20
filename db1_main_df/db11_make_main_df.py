@@ -8,6 +8,7 @@ from db0_load.db03_load_cf import load_cf_dataframe
 from .db13_merge import df_merge_sequence
 
 from db5_global.db50_global_misc import print_debug_info
+from db5_global.db52_dtype_dict import f_types_vals
 
 def build_main_dataframe(verbose=False):
     # Define individual DataFrames
@@ -29,6 +30,8 @@ def build_main_dataframe(verbose=False):
 
     # POST-MERGE OPERATIONS
 
+    main_df = consolidate_item_type(main_df)
+
     main_df['sort_orig'] = main_df['sort_orig'].fillna(-1).astype('Int64') # sort_orig = Int64, handle missing vals
 
     main_df = apply_output_grouping(main_df)
@@ -40,6 +43,36 @@ def build_main_dataframe(verbose=False):
     full_main_dataframe = main_df
 
     return full_main_dataframe
+
+
+def consolidate_item_type(df):
+    """Resolve consolidated item_type for rows that do not originate in repo scan."""
+    type_priority = [
+        "item_type",
+        "item_type_rp",
+        "item_type_hm",
+        "item_type_rp_cf",
+        "item_type_hm_cf",
+        "item_type_rp_db",
+        "item_type_hm_db",
+    ]
+    available = [col for col in type_priority if col in df.columns]
+    if not available:
+        return df
+
+    # Use first non-null type across known sources.
+    df["item_type"] = df[available].bfill(axis=1).iloc[:, 0]
+
+    # Normalize variants used by symlink/alias sources for consistent display/type checks.
+    normalize_map = {
+        "file_sym": "file",
+        "folder_sym": "folder",
+        "file_alias": "file",
+        "folder_alias": "folder",
+    }
+    df["item_type"] = df["item_type"].replace(normalize_map)
+    df["item_type"] = df["item_type"].astype(f_types_vals["item_type"]['dtype'])
+    return df
 
 def apply_output_grouping(df):
     # Sort the entire DataFrame by 'sort_orig'

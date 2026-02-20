@@ -11,7 +11,11 @@ from .db26_match_alert import detect_alerts
 from .db40_term_disp import reorder_dfr_cols_for_cli
 
 # Opt-in to the future behavior for downcasting
-pd.set_option('future.no_silent_downcasting', True)
+try:
+    pd.set_option('future.no_silent_downcasting', True)
+except Exception:
+    # Older/newer pandas versions may not expose this option.
+    pass
 
 def build_report_dataframe(main_df_dict, verbose=False):
     report_dataframe = main_df_dict['full_main_dataframe'].copy()

@@ -39,7 +39,27 @@
 {% if state_val == 'NoSym' %}
   {% set state_suffix = ' [NoSym]' %}
 {% endif %}
-{% if item.item_type == 'folder' %}
+{% set display_type = item.item_type %}
+{% if display_type is none or display_type == 'None' or display_type == 'nan' or display_type == '' %}
+  {% set display_type = item.item_type_rp %}
+{% endif %}
+{% if display_type is none or display_type == 'None' or display_type == 'nan' or display_type == '' %}
+  {% set display_type = item.item_type_hm %}
+{% endif %}
+{% if display_type is none or display_type == 'None' or display_type == 'nan' or display_type == '' %}
+  {% set display_type = item.item_type_rp_cf %}
+{% endif %}
+{% if display_type is none or display_type == 'None' or display_type == 'nan' or display_type == '' %}
+  {% set display_type = item.item_type_hm_cf %}
+{% endif %}
+{% if display_type is none or display_type == 'None' or display_type == 'nan' or display_type == '' %}
+  {% set display_type = item.item_type_rp_db %}
+{% endif %}
+{% if display_type is none or display_type == 'None' or display_type == 'nan' or display_type == '' %}
+  {% set display_type = item.item_type_hm_db %}
+{% endif %}
+{% set is_folder = display_type in ['folder', 'folder_sym', 'folder_alias'] %}
+{% if is_folder %}
   {% if state_val == 'NoSym' %}
 - **_{{ item.item_name }}{{ state_suffix }}{% if item.comment_cf %} | {{ item.comment_cf.strip() }}{% endif %} (ƒ)_**
   {% else %}
@@ -60,13 +80,13 @@
 
 #### _Items not in Template (but in Home Folder)_ ♦️
 {% for item in fs_not_in_di %}
-- {{ item.item_name }}{% if item.item_type == 'folder' %} (ƒ){% endif %}
+- {{ item.item_name }}{% if item.item_type in ['folder', 'folder_sym', 'folder_alias'] %} (ƒ){% endif %}
 
 {% endfor %}
 
 #### _Items not in Home Folder (but in Template)_
 
 {% for item in di_not_in_fs %}
-- {{ item.item_name }}{% if item.cf_comment %} | {{ item.cf_comment.strip() }}{% endif %}{% if item.item_type == 'folder' %} (ƒ){% endif %}
+- {{ item.item_name }}{% if item.cf_comment %} | {{ item.cf_comment.strip() }}{% endif %}{% if item.item_type in ['folder', 'folder_sym', 'folder_alias'] %} (ƒ){% endif %}
 
 {% endfor %}
